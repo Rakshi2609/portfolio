@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+
+# Build output
+/dist/
+/build/
+
+# Vite cache and artifacts
+.vite/
+.vite-inspect/
+*.tsbuildinfo
+vite.config.*.timestamp-*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Editor settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Test coverage
+coverage/
+*.lcov
+
+# Caches
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Framework build dirs (safe to ignore if present in future)
+.next/
+.nuxt/
+.svelte-kit/
+.sass-cache/
+
+# Static site/storybook
+.out/
+storybook-static/
+
+# Hosting providers
+.netlify/
+.vercel/
+
+# Misc
+# lockfiles are intentionally kept in VCS
