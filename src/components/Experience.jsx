@@ -19,7 +19,7 @@ const items = [
     title: "Academic Projects at VIT",
     subtitle: "Coursework & Labs",
     period: "2023 — 2025",
-    detail: "Projects spanning full‑stack dev, Network Security, and systems design.",
+    detail: "Projects spanning full‑stack dev, Network Security, systems design, teamed with peers to deliver practical solutions, well pictured and documented for academic evaluation and presentations.",
     achievement: "Demo is displayed in the labs of VIT.",
   },
 ]

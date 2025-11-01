@@ -10,7 +10,7 @@ export default function About() {
       </motion.p>
       <motion.p className="mt-3 text-slate-300" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
         Passionate about <em>AI-powered innovation</em> — from smarter task managers to healthcare tools like early tumor detection. 
-        Fun fact: I feel happiest when my hair looks good 😄
+  Fun fact: I feel happiest when my hair looks good.
       </motion.p>
     </section>
   )

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import SplashCursor from './SplashCursor'
 
 const Tagline = () => {
   const full = "I build intelligent web apps that make life simpler."
@@ -34,14 +33,14 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-5xl font-bold leading-tight"
           >
-            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue z-[200]">Rakshith</span> 👋
+            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue z-[200]">Rakshith</span>
           </motion.h1>
           <div className="mt-4">
             <Tagline />
           </div>
           <div className="mt-6 flex gap-3">
             <a href="#projects" className="px-4 py-2 rounded-lg bg-neon-purple/20 border border-neon-purple text-white shadow-glow">View Projects</a>
-            <a href="#contact" className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white">Let’s Collaborate 🚀</a>
+            <a href="#contact" className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white">Let’s Collaborate</a>
           </div>
         </div>
         <motion.div
@@ -52,9 +51,8 @@ export default function Hero() {
         >
 
           <div className="absolute inset-0 grid place-items-center text-center p-6">
-            {/* <SplashCursor/> */}
             <p className="text-sm text-slate-300">Student Developer | ML & Web Enthusiast | Problem Solver at VIT</p>
-            <p className="text-xs text-slate-400 mt-2">Currently working on Mira v2.0 🚑</p>
+            <p className="text-xs text-slate-400 mt-2">Currently working on Mira v2.0</p>
           </div>
         </motion.div>
       </div>

@@ -8,7 +8,6 @@ import ProjectsPage from './pages/ProjectsPage'
 import ExperiencePage from './pages/ExperiencePage'
 import ContactPage from './pages/ContactPage'
 import ScrollToTopButton from './components/ScrollToTopButton'
-import ThemeToggle from './components/ThemeToggle'
 import SplashCursor from './components/SplashCursor'
 // import Cursor from './components/cursor'
 
@@ -20,26 +19,16 @@ const pageVariants = {
 
 export default function App() {
   const location = useLocation()
-  const [dark, setDark] = useState(true)
-  const [aiMode, setAiMode] = useState(true)
-
+  // Force dark theme once on mount (no on-screen toggle)
   useEffect(() => {
-    const html = document.documentElement
-    if (dark) html.classList.add('dark')
-    else html.classList.remove('dark')
-  }, [dark])
-
-  useEffect(() => {
-    const root = document.documentElement
-    root.style.setProperty('--ai-glow', aiMode ? '0 0 80px rgba(123, 97, 255, 0.5)' : '0 0 0 rgba(0,0,0,0)')
-  }, [aiMode])
+    document.documentElement.classList.add('dark')
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_top_left,rgba(122,92,255,.15),transparent_40%),radial-gradient(ellipse_at_bottom_right,rgba(43,217,254,.12),transparent_40%)]">
       {/* <Cursor/> */}
       <SplashCursor />
-      <Navbar />
-      <ThemeToggle dark={dark} setDark={setDark} aiMode={aiMode} setAiMode={setAiMode} />
+  <Navbar />
       <main className="flex-1 container mx-auto px-4">
         <AnimatePresence mode="wait">
           <motion.div key={location.pathname} variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.25 }}>
