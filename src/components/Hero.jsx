@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import SplashCursor from './SplashCursor'
 
 const Tagline = () => {
   const full = "I build intelligent web apps that make life simpler."
@@ -25,7 +26,7 @@ const Tagline = () => {
 export default function Hero() {
   return (
     <section className="pt-16 md:pt-24 pb-12" id="home">
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="grid md:grid-cols-2 gap-8 z-20 items-center">
         <div>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
@@ -33,7 +34,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-5xl font-bold leading-tight"
           >
-            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">Rakshith</span> 👋
+            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue z-[200]">Rakshith</span> 👋
           </motion.h1>
           <div className="mt-4">
             <Tagline />
@@ -47,9 +48,11 @@ export default function Hero() {
           initial={{ opacity: 0, scale: .95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: .5, delay: .1 }}
-          className="relative h-56 md:h-72 rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_30%_20%,rgba(255,43,209,.2),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(43,217,254,.2),transparent_40%)] ai-glow"
+          className="relative h-56 md:h-72 rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_30%_20%,rgba(255,43,209,.2),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(43,217,254,.2),transparent_40%)] ai-glow z-50 onhover:scale-[1.02] transition-transform duration-300 bg-color"
         >
+
           <div className="absolute inset-0 grid place-items-center text-center p-6">
+            {/* <SplashCursor/> */}
             <p className="text-sm text-slate-300">Student Developer | ML & Web Enthusiast | Problem Solver at VIT</p>
             <p className="text-xs text-slate-400 mt-2">Currently working on Mira v2.0 🚑</p>
           </div>

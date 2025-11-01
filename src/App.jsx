@@ -9,6 +9,8 @@ import ExperiencePage from './pages/ExperiencePage'
 import ContactPage from './pages/ContactPage'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import ThemeToggle from './components/ThemeToggle'
+import SplashCursor from './components/SplashCursor'
+// import Cursor from './components/cursor'
 
 const pageVariants = {
   initial: { opacity: 0, y: 10 },
@@ -34,6 +36,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_top_left,rgba(122,92,255,.15),transparent_40%),radial-gradient(ellipse_at_bottom_right,rgba(43,217,254,.12),transparent_40%)]">
+      {/* <Cursor/> */}
+      <SplashCursor />
       <Navbar />
       <ThemeToggle dark={dark} setDark={setDark} aiMode={aiMode} setAiMode={setAiMode} />
       <main className="flex-1 container mx-auto px-4">
