@@ -5,17 +5,21 @@ import Experience from "./special/Experience";
 import Education from "./special/Education";
 // import Contact from "./special/Contact";
 import Connect from "./special/Connect";
+import CustomCursor from "./components/CustomCursor";
 
 export default function App() {
   return (
-    <div className="w-full bg-black text-white overflow-x-hidden">
-      <Name />
-      <About />
-      <Projects />
-      <Experience />
-      <Education />
-      {/* <Contact /> */}
-      <Connect />
-    </div>
+    <>
+      <CustomCursor />
+      <div className="w-full bg-black text-white overflow-x-hidden">
+        <Name />
+        <About />
+        <Projects />
+        <Experience />
+        <Education />
+        {/* <Contact /> */}
+        <Connect />
+      </div>
+    </>
   );
 }
