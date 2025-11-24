@@ -11,6 +11,80 @@ const About = () => {
   const skillsRef = useRef(null)
   const marqueeRefs = useRef([])
 
+  useEffect(() => {
+    const section = aboutSectionRef.current
+    const image = imageRef.current
+    const text = textRef.current
+    const skills = skillsRef.current
+
+    // Fade in section on scroll
+    gsap.fromTo(
+      section,
+      { opacity: 0, scale: 1.1 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "top 40%",
+          scrub: 1,
+        },
+      }
+    )
+
+    // Image fade in animation
+    gsap.fromTo(
+      image,
+      { opacity: 0, x: -50, rotation: -5 },
+      {
+        opacity: 1,
+        x: 0,
+        rotation: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      }
+    )
+
+    // Text fade in animation
+    gsap.fromTo(
+      text,
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        delay: 0.3,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      }
+    )
+
+    // Skills fade in
+    gsap.fromTo(
+      skills,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: skills,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    )
+  }, [])
+
   const skillCategories = [
     {
       category: "Languages",
@@ -79,10 +153,10 @@ const About = () => {
         <div className="flex flex-col lg:flex-row gap-10 items-center justify-center mb-16">
 
           {/* IMAGE */}
-          <div ref={imageRef} className="flex-1 flex justify-center">
-            <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-2xl bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] flex items-center justify-center">
-              <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-2xl bg-gray-900 flex items-center justify-center">
-                <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="#4DB8FF" strokeWidth="1.5">
+          <div ref={imageRef} className="flex-1 flex justify-center group">
+            <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-2xl bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_0_40px_rgba(77,184,255,0.6)]">
+              <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-2xl bg-gray-900 flex items-center justify-center transform transition-all duration-500 group-hover:bg-gray-800">
+                <svg className="w-16 h-16 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="#4DB8FF" strokeWidth="1.5">
                   <path d="M9 3H4v6h5V3zM20 9h-5v6h5V9zM14 15H9v6h5v-6zM20 3h-5v4h5V3z"/>
                   <path d="M12 12L9 9M12 12l3-3M12 12v9"/>
                 </svg>

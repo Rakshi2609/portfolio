@@ -93,7 +93,7 @@ const Experience = () => {
         {/* TITLE */}
         <h2
           ref={titleRef}
-          className="text-3xl md:text-4xl font-bold text-white mb-12 text-center"
+          className="text-3xl md:text-4xl font-bold text-white mb-12 text-left pl-40"
         >
           My <span className="text-[#4DB8FF]">Experience</span>
         </h2>

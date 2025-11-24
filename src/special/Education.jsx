@@ -36,7 +36,7 @@ const Education = () => {
       {/* LEFT LIST */}
       <div className="w-[25%] flex flex-col">
         <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          My <span className="text-[#4DB8FF]">Education</span>
+          <span className="text-[#4DB8FF]">Education</span>
         </h2>
 
         <div className="flex flex-col gap-6">
