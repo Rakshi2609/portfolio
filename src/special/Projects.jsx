@@ -13,35 +13,35 @@ const Projects = () => {
     {
       title: "AI ChatBot Platform",
       description:
-        "Full-stack chatbot with NLP capabilities, supporting multiple languages and context-aware responses.",
+        "Full-stack AI chatbot with NLP, multilingual support, and contextual memory.",
       tech: ["React", "Python", "TensorFlow", "MongoDB"],
       color: "from-blue-500 to-cyan-500",
     },
     {
       title: "E-Commerce Dashboard",
       description:
-        "Real-time analytics dashboard for tracking sales, inventory, and customer behavior patterns.",
+        "Real-time analytics dashboard for sales, inventory, and customer behaviour insights.",
       tech: ["Next.js", "Node.js", "PostgreSQL", "Chart.js"],
       color: "from-purple-500 to-pink-500",
     },
     {
       title: "Image Recognition System",
       description:
-        "Deep learning model for object detection and classification with 95% accuracy rate.",
+        "Deep learning model for object detection & classification with 95% accuracy.",
       tech: ["Python", "PyTorch", "OpenCV", "Flask"],
       color: "from-green-500 to-teal-500",
     },
     {
       title: "Task Management App",
       description:
-        "Collaborative project management tool with real-time updates and team communication features.",
+        "Collaborative task management with realtime sync & team messaging.",
       tech: ["React", "Express", "Socket.io", "MongoDB"],
       color: "from-orange-500 to-red-500",
     },
     {
       title: "Weather Prediction ML",
       description:
-        "Machine learning model predicting weather patterns using historical climate data analysis.",
+        "Machine learning model predicting weather patterns using historical data.",
       tech: ["Python", "Scikit-learn", "Pandas", "Docker"],
       color: "from-indigo-500 to-blue-500",
     },
@@ -49,11 +49,17 @@ const Projects = () => {
 
   useEffect(() => {
     const container = containerRef.current;
-    const cards = gsap.utils.toArray(".project-card");
     const progressBar = progressBarRef.current;
 
+    gsap.from(".projects-title", {
+      opacity: 0,
+      y: -40,
+      duration: 1,
+      ease: "power3.out",
+    });
+
     gsap.to(container, {
-      x: () => -(container.scrollWidth - window.innerWidth + 100),
+      x: () => -(container.scrollWidth - window.innerWidth + 150),
       ease: "none",
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -64,10 +70,10 @@ const Projects = () => {
         onUpdate: (self) => {
           gsap.to(progressBar, {
             scaleX: self.progress,
-            duration: 0.1,
-            ease: "none"
+            duration: 0.2,
+            ease: "none",
           });
-        }
+        },
       },
     });
   }, []);
@@ -79,48 +85,51 @@ const Projects = () => {
     >
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
-        <div 
+        <div
           ref={progressBarRef}
-          className="h-full bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] origin-left"
-          style={{ transform: 'scaleX(0)' }}
+          className="h-full bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] origin-left scale-x-0"
         />
       </div>
 
-      <div className="absolute top-20 left-12 z-10">
-        <h2 className="text-5xl md:text-6xl font-bold text-white">
+      {/* Title */}
+      <div className="absolute top-[50px] left-10 z-10">
+        <h2 className="projects-title text-5xl md:text-6xl font-bold text-white">
           My <span className="text-[#4DB8FF]">Projects</span>
         </h2>
-        <p className="text-gray-400 mt-4 text-lg">Scroll to explore →</p>
+        <p className="text-gray-400 mt-3 text-lg">
+          Scroll horizontally to explore →
+        </p>
       </div>
 
+      {/* Cards */}
       <div
         ref={containerRef}
-        className="h-full flex items-center gap-8 pl-5 pr-20 pt-40"
+        className="h-full flex items-center gap-10 px-10"
+        style={{ marginLeft: "30px", paddingTop: "120px" }}
       >
         {projects.map((project, index) => (
           <div
             key={index}
-            className="project-card min-w-[600px] h-[500px] flex-shrink-0"
-            style={{ marginLeft: index === 0 ? '20px' : '30px' }}
+            className="project-card min-w-[340px] h-[340px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
           >
             <div
-              className={`h-full bg-gradient-to-br ${project.color} p-[2px] rounded-2xl shadow-[0_0_40px_-8px_#4DB8FF]`}
+              className={`h-full bg-gradient-to-br ${project.color} p-[2px] rounded-2xl shadow-[0_0_20px_-4px_#4DB8FF]`}
             >
-              <div className="h-full bg-black/80 backdrop-blur-xl rounded-2xl p-8 flex flex-col justify-between border border-white/10 shadow-xl">
+              <div className="h-full bg-black/80 rounded-2xl backdrop-blur-xl p-5 flex flex-col justify-between border border-white/10 shadow-xl">
                 <div>
-                  <h3 className="text-4xl font-bold text-white mb-4">
+                  <h3 className="text-xl font-bold text-white mb-2">
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                  <p className="text-gray-300 text-xs leading-relaxed mb-4">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-4 py-2 bg-white/5 border border-white/10 text-[#4DB8FF] rounded-lg text-sm font-semibold shadow"
+                        className="px-3 py-1 bg-white/5 border border-white/10 text-[#4DB8FF] rounded-lg text-[10px] font-semibold shadow"
                       >
                         {tech}
                       </span>
@@ -128,12 +137,12 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <button className="flex-1 px-6 py-3 rounded-xl font-bold bg-white/20 backdrop-blur-xl text-white hover:bg-white/30 transition-all duration-300 border border-white/20">
+                <div className="flex gap-2">
+                  <button className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs">
                     View Live
                   </button>
 
-                  <button className="flex-1 px-6 py-3 rounded-xl font-bold border border-[#4DB8FF] text-[#4DB8FF] hover:bg-[#4DB8FF] hover:text-black transition-all duration-300">
+                  <button className="flex-1 px-2 py-2 rounded-xl font-semibold border border-[#4DB8FF] text-[#4DB8FF] hover:bg-[#4DB8FF] hover:text-black transition-all duration-300 text-xs">
                     Source Code
                   </button>
                 </div>
@@ -141,6 +150,11 @@ const Projects = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Mobile */}
+      <div className="lg:hidden absolute bottom-10 w-full text-center text-gray-400">
+        Swipe → to view projects
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ const experiences = [
     title: "Hack Club",
     role: "Web Developer",
     description:
-      "Worked on internal tools, responsive UIs, and event-driven applications. Built multiple components alongside student developers to enable faster feature rollout.",
+      "Worked on internal tools, responsive UIs, and event-driven applications. Built multiple components to enable faster feature rollout.",
     startDate: "2023",
     endDate: "2024",
   },
@@ -17,7 +17,7 @@ const experiences = [
     title: "CodeChef Club",
     role: "Web Developer",
     description:
-      "Developed competitive coding event portals, leaderboards, UI components, and optimized user experience for contest-day traffic.",
+      "Developed competitive coding event portals, leaderboards, UI components, and optimized UX for contest-day traffic.",
     startDate: "2023",
     endDate: "Present",
   },
@@ -25,7 +25,7 @@ const experiences = [
     title: "Film Society, VIT Chennai",
     role: "Video Editor",
     description:
-      "Created cinematic edits, event aftermovies, Instagram reels, short films and story-driven content using motion graphics + advanced color grading.",
+      "Created cinematic edits, reels, aftermovies, short films using motion graphics + color grading.",
     startDate: "2024",
     endDate: "Present",
   },
@@ -33,7 +33,7 @@ const experiences = [
     title: "Harley's Fine Baking",
     role: "Web Developer",
     description:
-      "Designed and maintained the website, built product showcasing UI, improved SEO, and enhanced responsiveness for all devices.",
+      "Designed & maintained the website, improved UI, SEO, responsiveness, and performance.",
     startDate: "2024",
     endDate: "2025",
   },
@@ -51,71 +51,63 @@ const Experience = () => {
   const active = hovered !== null ? hovered : selected;
 
   useEffect(() => {
-    // Animate content change
     if (contentRef.current) {
-      gsap.fromTo(contentRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
       );
     }
   }, [active]);
 
   useEffect(() => {
-    // Title animation
     gsap.from(titleRef.current, {
-      scrollTrigger: {
-        trigger: titleRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      },
-      y: 50,
+      scrollTrigger: { trigger: titleRef.current, start: "top 80%" },
+      y: 30,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out"
+      duration: 0.7,
+      ease: "power3.out",
     });
 
-    // Timeline animation
     gsap.from(timelineRef.current, {
-      scrollTrigger: {
-        trigger: timelineRef.current,
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      x: -100,
+      scrollTrigger: { trigger: timelineRef.current, start: "top 75%" },
+      x: -60,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out"
+      duration: 0.7,
+      ease: "power3.out",
     });
 
-    // Details panel animation
     gsap.from(detailsRef.current, {
-      scrollTrigger: {
-        trigger: detailsRef.current,
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      x: 100,
+      scrollTrigger: { trigger: detailsRef.current, start: "top 75%" },
+      x: 60,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out"
+      duration: 0.7,
+      ease: "power3.out",
     });
   }, []);
 
   return (
-    <section ref={sectionRef} className="min-h-screen bg-black py-20 px-10 text-white">
+    <section className="min-h-screen bg-black py-14 px-8 text-white">
       <div className="max-w-7xl mx-auto">
-        <h2 ref={titleRef} className="text-5xl md:text-6xl font-bold text-white mb-16 text-center">
+
+        {/* TITLE */}
+        <h2
+          ref={titleRef}
+          className="text-3xl md:text-4xl font-bold text-white mb-12 text-center"
+        >
           My <span className="text-[#4DB8FF]">Experience</span>
         </h2>
 
-        <div className="flex gap-16 justify-center">
-          {/* LEFT TIMELINE */}
-          <div ref={timelineRef} className="w-[25%] relative flex flex-col items-center">
-            {/* Vertical Line */}
-            <div className="absolute top-0 bottom-0 w-[4px] bg-white/10 rounded-full"></div>
+        <div className="flex gap-12 justify-center">
 
-            {/* Timeline Items */}
-            <div className="flex flex-col gap-14 mt-5">
+          {/* LEFT TIMELINE */}
+          <div
+            ref={timelineRef}
+            className="w-[25%] relative flex flex-col items-center"
+          >
+            <div className="absolute top-0 bottom-0 w-[2px] bg-white/10 rounded-full"></div>
+
+            <div className="flex flex-col gap-8 mt-3">
               {experiences.map((exp, index) => {
                 const isActive = active === index;
 
@@ -125,26 +117,27 @@ const Experience = () => {
                     onClick={() => setSelected(index)}
                     onMouseEnter={() => setHovered(index)}
                     onMouseLeave={() => setHovered(null)}
-                    className="flex flex-col items-center cursor-pointer transition-all"
+                    className="flex flex-col items-center cursor-pointer"
                   >
-                    {/* Dot */}
                     <div
-                      className={`w-7 h-7 rounded-full border-2 border-[#4DB8FF] transition-all duration-300
-                        ${isActive ? "bg-[#4DB8FF] shadow-[0_0_20px_#4DB8FF]" : "bg-black"}
-                      `}
+                      className={`w-5 h-5 rounded-full border-2 border-[#4DB8FF] transition-all duration-300 ${
+                        isActive
+                          ? "bg-[#4DB8FF] shadow-[0_0_12px_#4DB8FF]"
+                          : "bg-black"
+                      }`}
                     ></div>
 
-                    {/* Title */}
                     <p
-                      className={`mt-4 text-center transition-all duration-300 font-bold text-lg
-                        ${isActive ? "text-[#4DB8FF] scale-110" : "text-gray-400"}
-                      `}
+                      className={`mt-2 font-semibold text-sm text-center transition-all ${
+                        isActive
+                          ? "text-[#4DB8FF] scale-105"
+                          : "text-gray-400"
+                      }`}
                     >
                       {exp.title}
                     </p>
 
-                    {/* Dates */}
-                    <p className="text-md text-gray-500 font-medium">
+                    <p className="text-xs text-gray-500 font-medium">
                       {exp.startDate} – {exp.endDate}
                     </p>
                   </div>
@@ -153,31 +146,32 @@ const Experience = () => {
             </div>
           </div>
 
-          {/* RIGHT PANEL */}
-          <div ref={detailsRef} className="w-[55%] bg-black/40 border border-white/10 rounded-2xl p-14 backdrop-blur-2xl shadow-xl">
+          {/* RIGHT DETAILS */}
+          <div
+            ref={detailsRef}
+            className="w-[55%] bg-black/40 border border-white/10 rounded-2xl p-8 backdrop-blur-2xl shadow-xl"
+          >
             <div ref={contentRef}>
-              {/* Big Title */}
-              <h2 className="text-6xl font-extrabold text-[#4DB8FF] mb-6 leading-snug">
+              <h2 className="text-2xl font-bold text-[#4DB8FF] mb-3">
                 {experiences[active].title}
               </h2>
 
-              {/* Role */}
-              <p className="text-3xl text-white mb-3 font-semibold">
+              <p className="text-lg text-white mb-1 font-semibold">
                 {experiences[active].role}
               </p>
 
-              {/* Date Range */}
-              <p className="text-gray-400 text-xl mb-10 font-medium">
+              <p className="text-gray-400 text-sm mb-5 font-medium">
                 {experiences[active].startDate} – {experiences[active].endDate}
               </p>
 
-              {/* Description */}
-              <p className="text-gray-300 text-2xl leading-relaxed">
+              <p className="text-gray-300 text-base leading-relaxed">
                 {experiences[active].description}
               </p>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
   );
