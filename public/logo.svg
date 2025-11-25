@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="100,10 170,50 170,140 100,180 30,140 30,50"
+    stroke="#4DB8FF" stroke-width="6" fill="#020617"/>
+  <text x="50%" y="58%" text-anchor="middle"
+        fill="#4DB8FF" font-size="70" font-family="Poppins, sans-serif" font-weight="700">RG</text>
+</svg>
