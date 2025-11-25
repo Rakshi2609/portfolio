@@ -29,6 +29,11 @@ const educationData = [
 
 const Education = () => {
   const [selected, setSelected] = useState(0);
+  const [expandedMobile, setExpandedMobile] = useState(null);
+
+  const toggleMobile = (index) => {
+    setExpandedMobile(expandedMobile === index ? null : index);
+  };
 
   return (
     <section className="min-h-screen bg-black py-14 px-8 text-white">
@@ -39,8 +44,60 @@ const Education = () => {
           <span className="text-[#4DB8FF]">Education</span>
         </h2>
 
-        {/* CONTENT */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 justify-center items-start">
+        {/* MOBILE DROPDOWN VERSION */}
+        <div className="lg:hidden flex flex-col gap-4">
+          {educationData.map((edu, index) => {
+            const isExpanded = expandedMobile === index;
+
+            return (
+              <div
+                key={index}
+                className="border border-white/10 rounded-xl overflow-hidden transition-all duration-300"
+              >
+                {/* Dropdown Header */}
+                <div
+                  onClick={() => toggleMobile(index)}
+                  className={`p-4 cursor-pointer transition-all duration-300 ${
+                    isExpanded ? "bg-[#4DB8FF]/10" : "bg-black/40 hover:bg-white/5"
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex-1">
+                      <h3 className={`text-base font-semibold mb-1 ${isExpanded ? "text-[#4DB8FF]" : "text-white"}`}>
+                        {edu.title}
+                      </h3>
+                      <p className="text-sm text-[#4DB8FF] font-medium">
+                        {edu.role}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {edu.startDate} – {edu.endDate}
+                      </p>
+                    </div>
+                    <div className={`text-[#4DB8FF] text-2xl transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}>
+                      ▼
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dropdown Content */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="p-4 bg-black/40 border-t border-white/10">
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {edu.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* DESKTOP VERSION */}
+        <div className="hidden lg:flex gap-8 lg:gap-12 justify-center items-start">
           
           {/* LEFT LIST */}
           <div className="w-full lg:w-[30%] flex flex-col gap-6">

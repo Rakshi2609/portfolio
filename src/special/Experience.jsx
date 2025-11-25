@@ -69,21 +69,31 @@ const Experience = () => {
       ease: "power3.out",
     });
 
-    gsap.from(timelineRef.current, {
-      scrollTrigger: { trigger: timelineRef.current, start: "top 75%" },
-      x: -60,
-      opacity: 0,
-      duration: 0.7,
-      ease: "power3.out",
+    const mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 1024px)", () => {
+      if (timelineRef.current) {
+        gsap.from(timelineRef.current, {
+          scrollTrigger: { trigger: timelineRef.current, start: "top 75%" },
+          x: -60,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power3.out",
+        });
+      }
+
+      if (detailsRef.current) {
+        gsap.from(detailsRef.current, {
+          scrollTrigger: { trigger: detailsRef.current, start: "top 75%" },
+          x: 60,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power3.out",
+        });
+      }
     });
 
-    gsap.from(detailsRef.current, {
-      scrollTrigger: { trigger: detailsRef.current, start: "top 75%" },
-      x: 60,
-      opacity: 0,
-      duration: 0.7,
-      ease: "power3.out",
-    });
+    return () => mm.revert();
   }, []);
 
   return (
@@ -93,12 +103,13 @@ const Experience = () => {
         {/* TITLE */}
         <h2
           ref={titleRef}
-          className="text-3xl md:text-4xl font-bold text-white mb-12 text-left pl-40"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-left lg:pl-40 pl-6"
         >
           My <span className="text-[#4DB8FF]">Experience</span>
         </h2>
 
-        <div className="flex gap-12 justify-center">
+        {/* Desktop Version - Timeline Layout */}
+        <div className="hidden lg:flex gap-12 justify-center">
 
           {/* LEFT TIMELINE */}
           <div
@@ -170,6 +181,37 @@ const Experience = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* Mobile Version - Vertical Timeline */}
+        <div className="lg:hidden relative px-6">
+          {/* Vertical Line */}
+          <div className="absolute left-[1.75rem] top-0 bottom-0 w-[2px] bg-white/10"></div>
+
+          <div className="flex flex-col gap-6">
+            {experiences.map((exp, index) => (
+              <div key={index} className="relative flex gap-4">
+                {/* Timeline Dot */}
+                <div className="flex-shrink-0 w-4 h-4 rounded-full border-2 border-[#4DB8FF] bg-black mt-1 z-10"></div>
+
+                {/* Content Card */}
+                <div className="flex-1 bg-black/40 backdrop-blur-2xl rounded-xl border border-white/10 p-5 shadow-lg">
+                  <h3 className="text-lg font-bold text-[#4DB8FF] mb-1">
+                    {exp.title}
+                  </h3>
+                  <p className="text-sm font-semibold text-white mb-1">
+                    {exp.role}
+                  </p>
+                  <p className="text-xs text-gray-500 mb-3">
+                    {exp.startDate} – {exp.endDate}
+                  </p>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    {exp.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

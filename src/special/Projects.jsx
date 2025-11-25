@@ -58,33 +58,40 @@ const Projects = () => {
       ease: "power3.out",
     });
 
-    gsap.to(container, {
-      x: () => -(container.scrollWidth - window.innerWidth + 150),
-      ease: "none",
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${container.scrollWidth}`,
-        scrub: 1,
-        pin: true,
-        onUpdate: (self) => {
-          gsap.to(progressBar, {
-            scaleX: self.progress,
-            duration: 0.2,
-            ease: "none",
-          });
+    // Only enable horizontal scroll on desktop
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      gsap.to(container, {
+        x: () => -(container.scrollWidth - window.innerWidth + 150),
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${container.scrollWidth}`,
+          scrub: 1,
+          pin: true,
+          onUpdate: (self) => {
+            gsap.to(progressBar, {
+              scaleX: self.progress,
+              duration: 0.2,
+              ease: "none",
+            });
+          },
         },
-      },
+      });
     });
+
+    return () => mm.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="h-screen w-full bg-black relative overflow-hidden"
+      className="min-h-screen lg:h-screen w-full bg-black relative overflow-hidden"
     >
-      {/* Progress Bar */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
+      {/* Progress Bar - Desktop only */}
+      <div className="hidden lg:block absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
         <div
           ref={progressBarRef}
           className="h-full bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] origin-left scale-x-0"
@@ -92,25 +99,30 @@ const Projects = () => {
       </div>
 
       {/* Title */}
-      <div className="absolute top-[50px] left-10 z-10">
-        <h2 className="projects-title text-5xl md:text-6xl font-bold text-white">
-          My <span className="text-[#4DB8FF]">Projects</span>
-        </h2>
-        <p className="text-gray-400 mt-3 text-lg">
-          Scroll horizontally to explore →
-        </p>
+      <div className="absolute top-[20px] lg:top-[50px] left-4 md:left-10 z-50 max-w-[90%] lg:max-w-none">
+        <div className="bg-gradient-to-r from-black via-black/95 to-transparent pr-8 lg:pr-0 py-3 lg:py-0 rounded-r-xl lg:rounded-none">
+          <h2 className="projects-title text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white">
+            My <span className="text-[#4DB8FF]">Projects</span>
+          </h2>
+          <p className="hidden lg:block text-gray-400 mt-3 text-lg">
+            Scroll horizontally to explore →
+          </p>
+          <p className="lg:hidden text-gray-400 mt-1 text-xs sm:text-sm">
+            Swipe down to see all projects
+          </p>
+        </div>
       </div>
 
       {/* Cards */}
       <div
         ref={containerRef}
-        className="h-full flex items-center gap-10 px-10"
-        style={{ marginLeft: "30px", paddingTop: "120px" }}
+        className="h-full flex lg:flex-row flex-col items-center gap-6 lg:gap-10 px-4 md:px-10 pt-28 sm:pt-32 lg:pt-[120px] pb-10 lg:pb-0 overflow-y-auto lg:overflow-visible"
+        style={{ marginLeft: "0", maxHeight: "100vh" }}
       >
         {projects.map((project, index) => (
           <div
             key={index}
-            className="project-card min-w-[340px] h-[340px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
+            className="project-card w-full max-w-[340px] lg:min-w-[340px] h-[340px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
           >
             <div
               className={`h-full bg-gradient-to-br ${project.color} p-[2px] rounded-2xl shadow-[0_0_20px_-4px_#4DB8FF]`}
@@ -150,11 +162,6 @@ const Projects = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Mobile */}
-      <div className="lg:hidden absolute bottom-10 w-full text-center text-gray-400">
-        Swipe → to view projects
       </div>
     </section>
   );
