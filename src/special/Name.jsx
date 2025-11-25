@@ -30,55 +30,111 @@ const Name = () => {
       ease: "back.out(2)",
     });
 
-    // Scroll animation (clean and subtle)
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=100%",
-        scrub: 1,
-        pin: true,
-      },
-    });
+    // Responsive scroll animation
+    const mm = gsap.matchMedia();
 
-    tl.to(
-      helloRef.current,
-      {
-        x: -350,
-        y: -70,
-        scale: 0.4,
-        duration: 1,
-      },
-      0
-    )
-      .to(
-        nameRef.current,
+    mm.add("(min-width: 1024px)", () => {
+      // Desktop animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=100%",
+          scrub: 1,
+          pin: true,
+        },
+      });
+
+      tl.to(
+        helloRef.current,
         {
           x: -350,
-          y: -150,
-          scale: 0.5,
+          y: -70,
+          scale: 0.4,
           duration: 1,
         },
         0
       )
-      .fromTo(
-        rolesRef.current,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 100, x: -400, scale: 0.8, duration: 1 },
-        0.5
-      )
-      .fromTo(
-        imageRef.current,
-        { opacity: 0, scale: 0.8, y: 50 },
+        .to(
+          nameRef.current,
+          {
+            x: -350,
+            y: -150,
+            scale: 0.5,
+            duration: 1,
+          },
+          0
+        )
+        .fromTo(
+          rolesRef.current,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 100, x: -400, scale: 0.8, duration: 1 },
+          0.5
+        )
+        .fromTo(
+          imageRef.current,
+          { opacity: 0, scale: 0.8, y: 50 },
+          {
+            opacity: 1,
+            scale: 1,
+            x: 300,
+            y: 40,
+            duration: 1,
+          },
+          0.5
+        );
+    });
+
+    mm.add("(max-width: 1023px)", () => {
+      // Mobile/Tablet animation - simpler, vertical layout
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=100%",
+          scrub: 1,
+          pin: true,
+        },
+      });
+
+      tl.to(
+        helloRef.current,
         {
-          opacity: 1,
-          scale: 1,
-          x: 300,
-          y: 40,
+          y: -500,
+          scale: 0.4,
           duration: 1,
         },
-        0.5
-      );
+        0
+      )
+        .to(
+          nameRef.current,
+          {
+            y: -280,
+            scale: 0.7,
+            duration: 1,
+          },
+          0
+        )
+        .fromTo(
+          rolesRef.current,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: -120,x:-40, scale: 0.8, duration: 1 },
+          0.5
+        )
+        .fromTo(
+          imageRef.current,
+          { opacity: 0, scale: 0.8, y: 150 },
+          {
+            opacity: 1,
+            scale: 1.1,
+            y: 180,
+            duration: 1,
+          },
+          0.5
+        );
+    });
+
+    return () => mm.revert();
   }, []);
 
   const name = "Rakshith Ganjimut".split("");
@@ -151,27 +207,27 @@ const Name = () => {
 
       {/* ROLES BLOCK */}
       <div ref={rolesRef} className="absolute opacity-0 text-left">
-        <div className="border-l-4 border-[#4DB8FF] pl-6 py-4">
-          <p className="text-[#4DB8FF] text-3xl font-bold mb-5 tracking-wide">
+        <div className="border-l-4 border-[#4DB8FF] pl-4 lg:pl-6 py-3 lg:py-4">
+          <p className="text-[#4DB8FF] text-xl lg:text-3xl font-bold mb-3 lg:mb-5 tracking-wide">
             Hire me for
           </p>
 
-          <div className="space-y-3">
-            <p className="text-white text-xl md:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer">
+          <div className="space-y-2 lg:space-y-3">
+            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
               ➤ App Developer
             </p>
-            <p className="text-white text-xl md:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer">
+            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
               ➤ Web Developer
             </p>
-            <p className="text-white text-xl md:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer">
+            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
               ➤ Full Stack
             </p>
-            <p className="text-white text-xl md:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer">
+            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
               ➤ AI/ML
             </p>
           </div>
 
-          <button className="mt-8 px-8 py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold text-lg rounded-lg hover:scale-110 hover:shadow-lg shadow-[#4DB8FF]/50 active:scale-95">
+          <button className="mt-5 lg:mt-8 px-6 lg:px-8 py-2 lg:py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold text-base lg:text-lg rounded-lg hover:scale-110 hover:shadow-lg shadow-[#4DB8FF]/50 active:scale-95 transition-transform">
             Get Resume
           </button>
         </div>
