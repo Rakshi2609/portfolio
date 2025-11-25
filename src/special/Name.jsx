@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,6 +10,7 @@ const Name = () => {
   const rolesRef = useRef(null);
   const imageRef = useRef(null);
   const containerRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     // Initial animations
@@ -87,6 +88,24 @@ const Name = () => {
       ref={containerRef}
       className="h-screen w-full bg-black flex items-center justify-center relative overflow-hidden"
     >
+      <style>{`
+        @keyframes ray {
+          0% {
+            transform: translateX(-100%) rotate(45deg);
+          }
+          100% {
+            transform: translateX(200%) rotate(45deg);
+          }
+        }
+        .animate-ray {
+          animation: ray 1s ease-in-out;
+          width: 150%;
+          height: 150%;
+          top: -25%;
+          left: -25%;
+        }
+      `}</style>
+
       {/* CENTER TEXT */}
       <div className="absolute flex flex-col items-center justify-center text-center">
 
@@ -159,10 +178,31 @@ const Name = () => {
       </div>
 
       {/* PROFILE IMAGE CIRCLE */}
-      <div ref={imageRef} className="absolute opacity-0">
-        <div className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] rounded-full bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] flex items-center justify-center">
-          <div className="w-[230px] h-[230px] sm:w-[290px] sm:h-[290px] md:w-[340px] md:h-[340px] rounded-full bg-black flex items-center justify-center text-white text-5xl md:text-6xl font-bold">
-            RG
+      <div 
+        ref={imageRef} 
+        className="absolute opacity-0"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] rounded-full bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] p-[3px] flex items-center justify-center relative">
+          {/* Blue ray effect on hover */}
+          <div className={`absolute inset-0 rounded-full overflow-hidden transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="absolute animate-ray bg-gradient-to-r from-transparent via-[#4DB8FF] to-transparent opacity-70"></div>
+          </div>
+          
+          <div className="w-full h-full rounded-full overflow-hidden relative bg-black z-10">
+            <img 
+              src="/images/proffef.jpg" 
+              alt="Profile" 
+              className={`absolute w-full h-full object-cover transition-all duration-500 ${isHovered ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
+              style={{ objectPosition: '50% 36%' }}
+            />
+            <img 
+              src="/images/anime.jpg" 
+              alt="Anime Profile" 
+              className={`absolute w-full h-full object-cover transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              style={{ objectPosition: '50% 38%' }}
+            />
           </div>
         </div>
       </div>

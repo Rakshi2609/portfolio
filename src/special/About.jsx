@@ -155,11 +155,16 @@ const About = () => {
           {/* IMAGE */}
           <div ref={imageRef} className="flex-1 flex justify-center group">
             <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-2xl bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_0_40px_rgba(77,184,255,0.6)]">
-              <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-2xl bg-gray-900 flex items-center justify-center transform transition-all duration-500 group-hover:bg-gray-800">
-                <svg className="w-16 h-16 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="#4DB8FF" strokeWidth="1.5">
+              <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-2xl bg-gray-900 flex items-center justify-center transform transition-all duration-500 group-hover:bg-gray-800 relative overflow-hidden">
+                {/* SVG Icon - Hidden on hover */}
+                <svg className="w-16 h-16 transition-all duration-500 group-hover:scale-0 group-hover:opacity-0" viewBox="0 0 24 24" fill="none" stroke="#4DB8FF" strokeWidth="1.5">
                   <path d="M9 3H4v6h5V3zM20 9h-5v6h5V9zM14 15H9v6h5v-6zM20 3h-5v4h5V3z"/>
                   <path d="M12 12L9 9M12 12l3-3M12 12v9"/>
                 </svg>
+                {/* RG Text - Shows on hover */}
+                <div className="absolute inset-0 flex items-center justify-center text-white text-5xl md:text-6xl font-bold opacity-0 scale-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-12">
+                  RG
+                </div>
               </div>
             </div>
           </div>
