@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const educationData = [
   {
@@ -30,6 +34,44 @@ const educationData = [
 const Education = () => {
   const [selected, setSelected] = useState(0);
   const [expandedMobile, setExpandedMobile] = useState(null);
+  const leftListRef = useRef(null);
+  const rightPanelRef = useRef(null);
+
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      // Slide in from left
+      gsap.from(leftListRef.current, {
+        scrollTrigger: {
+          trigger: leftListRef.current,
+          start: "top bottom-=20",
+          end: "bottom bottom",
+          toggleActions: "play none none reverse"
+        },
+        x: -100,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      });
+
+      // Slide in from right
+      gsap.from(rightPanelRef.current, {
+        scrollTrigger: {
+          trigger: rightPanelRef.current,
+          start: "top bottom-=20",
+          end: "bottom bottom",
+          toggleActions: "play none none reverse"
+        },
+        x: 100,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
 
   const toggleMobile = (index) => {
     setExpandedMobile(expandedMobile === index ? null : index);
@@ -100,7 +142,7 @@ const Education = () => {
         <div className="hidden lg:flex gap-8 lg:gap-12 justify-center items-start">
           
           {/* LEFT LIST */}
-          <div className="w-full lg:w-[30%] flex flex-col gap-6">
+          <div ref={leftListRef} className="w-full lg:w-[30%] flex flex-col gap-6">
             {educationData.map((edu, index) => {
               const isActive = selected === index;
 
@@ -130,7 +172,7 @@ const Education = () => {
           </div>
 
           {/* RIGHT PANEL */}
-          <div className="w-full lg:w-[60%]">
+          <div ref={rightPanelRef} className="w-full lg:w-[60%]">
             <div className="bg-black/40 backdrop-blur-2xl border border-white/10 p-6 md:p-10 rounded-3xl shadow-xl">
 
               <h2 className="text-xl md:text-2xl font-bold text-[#4DB8FF] mb-3">

@@ -49,6 +49,8 @@ const Experience = () => {
   const contentRef = useRef(null);
 
   const active = hovered !== null ? hovered : selected;
+  const leftTimelineRef = useRef(null);
+  const rightDetailsRef = useRef(null);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -72,22 +74,32 @@ const Experience = () => {
     const mm = gsap.matchMedia();
     
     mm.add("(min-width: 1024px)", () => {
-      if (timelineRef.current) {
-        gsap.from(timelineRef.current, {
-          scrollTrigger: { trigger: timelineRef.current, start: "top 75%" },
-          x: -60,
+      if (leftTimelineRef.current) {
+        gsap.from(leftTimelineRef.current, {
+          scrollTrigger: {
+            trigger: leftTimelineRef.current,
+            start: "top bottom-=20",
+            end: "bottom bottom",
+            toggleActions: "play none none reverse"
+          },
+          x: -100,
           opacity: 0,
-          duration: 0.7,
+          duration: 0.8,
           ease: "power3.out",
         });
       }
 
-      if (detailsRef.current) {
-        gsap.from(detailsRef.current, {
-          scrollTrigger: { trigger: detailsRef.current, start: "top 75%" },
-          x: 60,
+      if (rightDetailsRef.current) {
+        gsap.from(rightDetailsRef.current, {
+          scrollTrigger: {
+            trigger: rightDetailsRef.current,
+            start: "top bottom-=20",
+            end: "bottom bottom",
+            toggleActions: "play none none reverse"
+          },
+          x: 100,
           opacity: 0,
-          duration: 0.7,
+          duration: 0.8,
           ease: "power3.out",
         });
       }
@@ -113,7 +125,7 @@ const Experience = () => {
 
           {/* LEFT TIMELINE */}
           <div
-            ref={timelineRef}
+            ref={leftTimelineRef}
             className="w-[25%] relative flex flex-col items-center"
           >
             <div className="absolute top-0 bottom-0 w-[2px] bg-white/10 rounded-full"></div>
@@ -159,7 +171,7 @@ const Experience = () => {
 
           {/* RIGHT DETAILS */}
           <div
-            ref={detailsRef}
+            ref={rightDetailsRef}
             className="w-[55%] bg-black/40 border border-white/10 rounded-2xl p-8 backdrop-blur-2xl shadow-xl"
           >
             <div ref={contentRef}>

@@ -79,6 +79,9 @@ const MusicPlayer = () => {
     if (musicPreference === null) {
       // Show modal after a short delay
       setTimeout(() => setShowModal(true), 1000);
+    } else if (musicPreference === 'enabled') {
+      // Set to paused by default, user must click play
+      setIsPlaying(false);
     }
   }, []);
 
