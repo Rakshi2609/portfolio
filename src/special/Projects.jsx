@@ -88,7 +88,7 @@ const Projects = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen lg:h-screen w-full bg-black relative overflow-hidden"
+      className="min-h-screen lg:h-screen w-full bg-black relative overflow-hidden lg:overflow-visible"
     >
       {/* Progress Bar - Desktop only */}
       <div className="hidden lg:block absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
@@ -116,8 +116,7 @@ const Projects = () => {
       {/* Cards */}
       <div
         ref={containerRef}
-        className="h-full flex lg:flex-row flex-col items-center gap-6 lg:gap-10 px-4 md:px-10 pt-28 sm:pt-32 lg:pt-[120px] pb-10 lg:pb-0 overflow-y-auto lg:overflow-visible"
-        style={{ marginLeft: "0", maxHeight: "100vh" }}
+        className="h-full flex lg:flex-row flex-col items-center gap-6 lg:gap-10 px-4 md:px-10 pt-28 sm:pt-32 lg:pt-[120px] pb-10 lg:pb-0 lg:overflow-visible overflow-y-auto"
       >
         {projects.map((project, index) => (
           <div
