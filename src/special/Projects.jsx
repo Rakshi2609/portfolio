@@ -8,6 +8,7 @@ const Projects = () => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const progressBarRef = useRef(null);
+  const mobileCardsRef = useRef([]);
 
   const projects = [
     {
@@ -60,6 +61,33 @@ const Projects = () => {
 
     // Only enable horizontal scroll on desktop
     const mm = gsap.matchMedia();
+
+    // Mobile animations - alternating left/right
+    mm.add("(max-width: 1023px)", () => {
+      mobileCardsRef.current.forEach((card, index) => {
+        if (card) {
+          const isEven = index % 2 === 0;
+          // Set initial state
+          gsap.set(card, {
+            x: isEven ? -100 : 100,
+            opacity: 0
+          });
+          // Animate to visible
+          gsap.to(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=20",
+              end: "bottom bottom",
+              toggleActions: "play none none reverse"
+            },
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out"
+          });
+        }
+      });
+    });
 
     mm.add("(min-width: 1024px)", () => {
       gsap.to(container, {
@@ -121,6 +149,7 @@ const Projects = () => {
         {projects.map((project, index) => (
           <div
             key={index}
+            ref={(el) => (mobileCardsRef.current[index] = el)}
             className="project-card w-full max-w-[340px] lg:min-w-[340px] h-[340px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
           >
             <div

@@ -51,6 +51,7 @@ const Experience = () => {
   const active = hovered !== null ? hovered : selected;
   const leftTimelineRef = useRef(null);
   const rightDetailsRef = useRef(null);
+  const mobileCardsRef = useRef([]);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -73,6 +74,28 @@ const Experience = () => {
 
     const mm = gsap.matchMedia();
     
+    // Mobile animations
+    mm.add("(max-width: 1023px)", () => {
+      mobileCardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=20",
+              end: "bottom bottom",
+              toggleActions: "play none none reverse"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "power3.out"
+          });
+        }
+      });
+    });
+
+    // Desktop animations
     mm.add("(min-width: 1024px)", () => {
       if (leftTimelineRef.current) {
         gsap.from(leftTimelineRef.current, {
@@ -201,8 +224,12 @@ const Experience = () => {
           <div className="absolute left-[1.75rem] top-0 bottom-0 w-[2px] bg-white/10"></div>
 
           <div className="flex flex-col gap-6">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative flex gap-4">
+          {experiences.map((exp, index) => (
+            <div
+              key={index}
+              ref={(el) => (mobileCardsRef.current[index] = el)}
+              className="relative flex gap-4"
+            >
                 {/* Timeline Dot */}
                 <div className="flex-shrink-0 w-4 h-4 rounded-full border-2 border-[#4DB8FF] bg-black mt-1 z-10"></div>
 

@@ -36,10 +36,33 @@ const Education = () => {
   const [expandedMobile, setExpandedMobile] = useState(null);
   const leftListRef = useRef(null);
   const rightPanelRef = useRef(null);
+  const mobileCardsRef = useRef([]);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
 
+    // Mobile animations
+    mm.add("(max-width: 1023px)", () => {
+      mobileCardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=20",
+              end: "bottom bottom",
+              toggleActions: "play none none reverse"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "power3.out"
+          });
+        }
+      });
+    });
+
+    // Desktop animations
     mm.add("(min-width: 1024px)", () => {
       // Slide in from left
       gsap.from(leftListRef.current, {
@@ -94,6 +117,7 @@ const Education = () => {
             return (
               <div
                 key={index}
+                ref={(el) => (mobileCardsRef.current[index] = el)}
                 className="border border-white/10 rounded-xl overflow-hidden transition-all duration-300"
               >
                 {/* Dropdown Header */}
