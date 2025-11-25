@@ -61,17 +61,17 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* Outer cursor ring */}
+      {/* Outer cursor ring - Hidden on mobile/tablet */}
       <div
         ref={cursorRef}
-        className="fixed w-8 h-8 border-2 border-[#4DB8FF] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+        className="hidden lg:block fixed w-8 h-8 border-2 border-[#4DB8FF] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
         style={{ mixBlendMode: "difference" }}
       />
       
-      {/* Inner cursor dot */}
+      {/* Inner cursor dot - Hidden on mobile/tablet */}
       <div
         ref={cursorDotRef}
-        className="fixed w-2 h-2 bg-[#4DB8FF] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+        className="hidden lg:block fixed w-2 h-2 bg-[#4DB8FF] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
       />
     </>
   );
