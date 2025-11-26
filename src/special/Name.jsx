@@ -227,9 +227,13 @@ const Name = () => {
             </p>
           </div>
 
-          <button className="mt-5 lg:mt-8 px-6 lg:px-8 py-2 lg:py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold text-base lg:text-lg rounded-lg hover:scale-110 hover:shadow-lg shadow-[#4DB8FF]/50 active:scale-95 transition-transform">
+          <a 
+            href="https://drive.google.com/uc?export=download&id=1hNbfs4CjGAD1MV7oJPaAdySxNX0sjzIg"
+            download="Rakshith_Ganjimut_Resume.pdf"
+            className="mt-5 lg:mt-8 px-6 lg:px-8 py-2 lg:py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold text-base lg:text-lg rounded-lg hover:scale-110 hover:shadow-lg shadow-[#4DB8FF]/50 active:scale-95 transition-transform inline-block"
+          >
             Get Resume
-          </button>
+          </a>
         </div>
       </div>
 
