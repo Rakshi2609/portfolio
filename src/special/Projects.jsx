@@ -153,6 +153,12 @@ const Projects = () => {
       ref={sectionRef}
       className="min-h-screen lg:h-screen w-full bg-black relative overflow-hidden lg:overflow-visible"
     >
+      <style>{`
+        .source-code-btn:hover {
+          background-color: var(--hover-bg) !important;
+          color: black !important;
+        }
+      `}</style>
       {/* Progress Bar - Desktop only */}
       <div className="hidden lg:block absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
         <div
@@ -167,12 +173,12 @@ const Projects = () => {
           <h2 className="projects-title text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white">
             My <span className="text-[#4DB8FF]">Projects</span>
           </h2>
-          <p className="hidden lg:block text-gray-400 mt-3 text-lg">
+          {/* <p className="hidden lg:block text-gray-400 mt-3 text-lg">
             Scroll horizontally to explore →
-          </p>
-          <p className="lg:hidden text-gray-400 mt-1 text-xs sm:text-sm">
+          </p> */}
+          {/* <p className="lg:hidden text-gray-400 mt-1 text-xs sm:text-sm">
             Swipe down to see all projects
-          </p>
+          </p> */}
         </div>
       </div>
 
@@ -218,6 +224,7 @@ const Projects = () => {
                   <a
                     href={project.live}
                     target="_blank"
+                    rel="noreferrer"
                     className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs text-center"
                   >
                     View Live
@@ -226,20 +233,13 @@ const Projects = () => {
                   <a
                     href={project.source}
                     target="_blank"
-                    className="flex-1 px-2 py-2 rounded-xl font-semibold transition-all duration-300 text-xs text-center"
+                    rel="noreferrer"
+                    className="source-code-btn flex-1 px-2 py-2 rounded-xl font-semibold transition-all duration-300 text-xs text-center"
                     style={{
+                      zIndex:100,
                       color: project.theme.button,
-                      borderColor: project.theme.button,
-                      borderWidth: '1px',
-                      borderStyle: 'solid'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = project.theme.button;
-                      e.currentTarget.style.color = 'black';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = project.theme.button;
+                      border: `1px solid ${project.theme.button}`,
+                      '--hover-bg': project.theme.button,
                     }}
                   >
                     Source Code
