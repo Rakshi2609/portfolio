@@ -17,7 +17,11 @@ const Projects = () => {
         "Tracks all your tasks and even the tasks you assign to others. Sends daily summary mails and supports Twilio notifications.",
       tech: ["React", "Express", "MongoDB", "Node.js","Nodemailer"],
       color: "from-blue-500 to-white",
-      theme: "#3B82F6",
+      theme: {
+        glow: "#4DB8FF",
+        tag: "#4DB8FF",
+        button: "#4DB8FF",
+      },
       live: "https://task-tapper-blush.vercel.app",
       source: "https://github.com/Rakshi2609/task-tapper",
     },
@@ -27,7 +31,11 @@ const Projects = () => {
         "A real-time shopping website where users can upload and manage their own products.",
       tech: ["MERN", "Pixel-AI", "Socket.io"],
       color: "from-orange-500 to-white",
-      theme: "#F97316",
+      theme: {
+        glow: "#FFAA55",
+        tag: "#FFAA55",
+        button: "#FFAA55",
+      },
       live: "https://shop-hub-1v4j.vercel.app",
       source: "https://github.com/Rakshi2609/ShopHub",
     },
@@ -37,7 +45,11 @@ const Projects = () => {
         "Connects doctors and patients in real time. Doctors can access digital medical records instantly. Replaces prescription slips.",
       tech: ["React", "Express", "MongoDB", "WebRTC"],
       color: "from-green-500 to-black",
-      theme: "#22C55E",
+      theme: {
+        glow: "#19FFB0",
+        tag: "#19FFB0",
+        button: "#19FFB0",
+      },
       live: "https://dr-help-2.vercel.app",
       source: "https://github.com/Rakshi2609/Dr_Help_2",
     },
@@ -47,7 +59,11 @@ const Projects = () => {
         "Gemini-powered multi-language code reviewer with 3 modes of deep analysis & correction.",
       tech: ["React", "Gemini API", "JavaScript","FastAPI"],
       color: "from-purple-500 via-pink-500 to-violet-600",
-      theme: "#A855F7",
+      theme: {
+        glow: "#E75CFF",
+        tag: "#E75CFF",
+        button: "#E75CFF",
+      },
       live: "https://ai-code-reviewer-livid-sigma.vercel.app",
       source: "https://github.com/Rakshi2609/AI_CODE_REVIEWER",
     },
@@ -57,7 +73,11 @@ const Projects = () => {
         "Career-focused AI chatbot powered by Gemini & Mistral with controlled context—answers only career-related queries.",
       tech: ["Next.js", "Gemini API", "Mistral", "Typescript"],
       color: "from-blue-900 to-gray-500",
-      theme: "#1E3A8A",
+      theme: {
+        glow: "#3DA6FF",
+        tag: "#3DA6FF",
+        button: "#3DA6FF",
+      },
       live: "https://career-chatbot-ruby.vercel.app",
       source: "https://github.com/Rakshi2609/career-chatbot",
     },
@@ -169,7 +189,7 @@ const Projects = () => {
           >
             <div
               className={`h-full bg-gradient-to-br ${project.color} p-[2px] rounded-2xl`}
-              style={{ boxShadow: `0 0 20px -4px ${project.theme}` }}
+              style={{ boxShadow: `0 0 20px -4px ${project.theme.glow}` }}
             >
               <div className="h-full bg-black/80 rounded-2xl backdrop-blur-xl p-5 flex flex-col justify-between border border-white/10 shadow-xl">
                 <div>
@@ -186,7 +206,7 @@ const Projects = () => {
                       <span
                         key={idx}
                         className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-semibold shadow"
-                        style={{ color: project.theme }}
+                        style={{ color: project.theme.tag }}
                       >
                         {tech}
                       </span>
@@ -208,18 +228,18 @@ const Projects = () => {
                     target="_blank"
                     className="flex-1 px-2 py-2 rounded-xl font-semibold transition-all duration-300 text-xs text-center"
                     style={{
-                      color: project.theme,
-                      borderColor: project.theme,
+                      color: project.theme.button,
+                      borderColor: project.theme.button,
                       borderWidth: '1px',
                       borderStyle: 'solid'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = project.theme;
+                      e.currentTarget.style.backgroundColor = project.theme.button;
                       e.currentTarget.style.color = 'black';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = project.theme;
+                      e.currentTarget.style.color = project.theme.button;
                     }}
                   >
                     Source Code
