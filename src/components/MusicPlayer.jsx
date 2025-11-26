@@ -50,20 +50,8 @@ const MusicPlayer = () => {
         trebleFilter.connect(gainNode);
         gainNode.connect(context.destination);
 
-        // Check if music should auto-play
-        const musicPreference = localStorage.getItem('musicPreference');
-        if (musicPreference === 'enabled') {
-          setIsPlaying(true);
-          setTimeout(() => {
-            if (context.state === 'suspended') {
-              context.resume().then(() => {
-                audioRef.current?.play().catch(err => console.log('Auto-play failed:', err));
-              });
-            } else {
-              audioRef.current?.play().catch(err => console.log('Auto-play failed:', err));
-            }
-          }, 200);
-        }
+        // Always start paused - user must click play
+        setIsPlaying(false);
       }
     };
 

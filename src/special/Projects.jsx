@@ -12,39 +12,49 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "AI ChatBot Platform",
+      title: "Task Tapper",
       description:
-        "Full-stack AI chatbot with NLP, multilingual support, and contextual memory.",
-      tech: ["React", "Python", "TensorFlow", "MongoDB"],
-      color: "from-blue-500 to-cyan-500",
+        "Tracks all your tasks and even the tasks you assign to others. Sends daily summary mails and supports Twilio notifications.",
+      tech: ["React", "Express", "MongoDB", "Node.js","Nodemailer"],
+      color: "from-blue-500 to-white",
+      live: "https://task-tapper-blush.vercel.app",
+      source: "https://github.com/Rakshi2609/task-tapper",
     },
     {
-      title: "E-Commerce Dashboard",
+      title: "ShopHub",
       description:
-        "Real-time analytics dashboard for sales, inventory, and customer behaviour insights.",
-      tech: ["Next.js", "Node.js", "PostgreSQL", "Chart.js"],
-      color: "from-purple-500 to-pink-500",
+        "A real-time shopping website where users can upload and manage their own products.",
+      tech: ["MERN", "Pixel-AI", "Socket.io"],
+      color: "from-orange-500 to-white",
+      live: "https://shop-hub-1v4j.vercel.app",
+      source: "https://github.com/Rakshi2609/ShopHub",
     },
     {
-      title: "Image Recognition System",
+      title: "Dr Help 2",
       description:
-        "Deep learning model for object detection & classification with 95% accuracy.",
-      tech: ["Python", "PyTorch", "OpenCV", "Flask"],
-      color: "from-green-500 to-teal-500",
+        "Connects doctors and patients in real time. Doctors can access digital medical records instantly. Replaces prescription slips.",
+      tech: ["React", "Express", "MongoDB", "WebRTC"],
+      color: "from-green-500 to-black",
+      live: "https://dr-help-2.vercel.app",
+      source: "https://github.com/Rakshi2609/Dr_Help_2",
     },
     {
-      title: "Task Management App",
+      title: "AI Code Reviewer",
       description:
-        "Collaborative task management with realtime sync & team messaging.",
-      tech: ["React", "Express", "Socket.io", "MongoDB"],
-      color: "from-orange-500 to-red-500",
+        "Gemini-powered multi-language code reviewer with 3 modes of deep analysis & correction.",
+      tech: ["React", "Gemini API", "JavaScript","FastAPI"],
+      color: "from-purple-500 via-pink-500 to-violet-600",
+      live: "https://ai-code-reviewer-livid-sigma.vercel.app",
+      source: "https://github.com/Rakshi2609/AI_CODE_REVIEWER",
     },
     {
-      title: "Weather Prediction ML",
+      title: "Career Chatbot",
       description:
-        "Machine learning model predicting weather patterns using historical data.",
-      tech: ["Python", "Scikit-learn", "Pandas", "Docker"],
-      color: "from-indigo-500 to-blue-500",
+        "Career-focused AI chatbot powered by Gemini & Mistral with controlled context—answers only career-related queries.",
+      tech: ["Next.js", "Gemini API", "Mistral", "Typescript"],
+      color: "from-blue-900 to-gray-500",
+      live: "https://career-chatbot-ruby.vercel.app",
+      source: "https://github.com/Rakshi2609/career-chatbot",
     },
   ];
 
@@ -59,7 +69,6 @@ const Projects = () => {
       ease: "power3.out",
     });
 
-    // Only enable horizontal scroll on desktop
     const mm = gsap.matchMedia();
 
     // Mobile animations - alternating left/right
@@ -67,28 +76,29 @@ const Projects = () => {
       mobileCardsRef.current.forEach((card, index) => {
         if (card) {
           const isEven = index % 2 === 0;
-          // Set initial state
+
           gsap.set(card, {
             x: isEven ? -100 : 100,
-            opacity: 0
+            opacity: 0,
           });
-          // Animate to visible
+
           gsap.to(card, {
             scrollTrigger: {
               trigger: card,
               start: "top bottom-=20",
               end: "bottom bottom",
-              toggleActions: "play none none reverse"
+              toggleActions: "play none none reverse",
             },
             x: 0,
             opacity: 1,
             duration: 0.8,
-            ease: "power3.out"
+            ease: "power3.out",
           });
         }
       });
     });
 
+    // Desktop horizontal scroll
     mm.add("(min-width: 1024px)", () => {
       gsap.to(container, {
         x: () => -(container.scrollWidth - window.innerWidth + 150),
@@ -128,7 +138,7 @@ const Projects = () => {
 
       {/* Title */}
       <div className="absolute top-[20px] lg:top-[50px] left-4 md:left-10 z-50 max-w-[90%] lg:max-w-none">
-        <div className="bg-gradient-to-r from-black via-black/95 to-transparent pr-8 lg:pr-0 py-3 lg:py-0 rounded-r-xl lg:rounded-none">
+        <div className="bg-gradient-to-r from-black via-black/95 to-transparent pr-8 lg:pr-0 py-3 lg:py-0 rounded-r-xl">
           <h2 className="projects-title text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white">
             My <span className="text-[#4DB8FF]">Projects</span>
           </h2>
@@ -178,13 +188,21 @@ const Projects = () => {
                 </div>
 
                 <div className="flex gap-2">
-                  <button className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs">
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs text-center"
+                  >
                     View Live
-                  </button>
+                  </a>
 
-                  <button className="flex-1 px-2 py-2 rounded-xl font-semibold border border-[#4DB8FF] text-[#4DB8FF] hover:bg-[#4DB8FF] hover:text-black transition-all duration-300 text-xs">
+                  <a
+                    href={project.source}
+                    target="_blank"
+                    className="flex-1 px-2 py-2 rounded-xl font-semibold border border-[#4DB8FF] text-[#4DB8FF] hover:bg-[#4DB8FF] hover:text-black transition-all duration-300 text-xs text-center"
+                  >
                     Source Code
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
