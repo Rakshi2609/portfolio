@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const MusicPlayer = () => {
-  const [showModal, setShowModal] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const [showControls, setShowControls] = useState(false);
@@ -60,18 +59,7 @@ const MusicPlayer = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    // Check if user has previously made a choice
-    const musicPreference = localStorage.getItem('musicPreference');
-    
-    if (musicPreference === null) {
-      // Show modal after a short delay
-      setTimeout(() => setShowModal(true), 1000);
-    } else if (musicPreference === 'enabled') {
-      // Set to paused by default, user must click play
-      setIsPlaying(false);
-    }
-  }, []);
+
 
   useEffect(() => {
     if (audioRef.current) {
@@ -106,27 +94,7 @@ const MusicPlayer = () => {
     }
   };
 
-  const handleAllow = () => {
-    localStorage.setItem('musicPreference', 'enabled');
-    setShowModal(false);
-    setIsPlaying(true);
-    // Initialize audio context on user interaction
-    setTimeout(() => {
-      if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
-        audioContextRef.current.resume().then(() => {
-          playAudio();
-        });
-      } else {
-        playAudio();
-      }
-    }, 100);
-  };
 
-  const handleDecline = () => {
-    localStorage.setItem('musicPreference', 'disabled');
-    setShowModal(false);
-    setIsPlaying(false);
-  };
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -178,41 +146,6 @@ const MusicPlayer = () => {
         loop
         src="/music/background.mp3"
       />
-
-      {/* Permission Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-gray-900 to-black border-2 border-[#4DB8FF] rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-[#4DB8FF]/20 animate-fadeIn">
-            <div className="flex items-center justify-center mb-6">
-              <i className="fas fa-music text-[#4DB8FF] text-5xl"></i>
-            </div>
-            
-            <h2 className="text-2xl font-bold text-white text-center mb-3">
-              Enhance Your Experience
-            </h2>
-            
-            <p className="text-gray-300 text-center mb-6">
-              Would you like to play background music while browsing? You can control it anytime.
-            </p>
-
-            <div className="flex gap-4">
-              <button
-                onClick={handleDecline}
-                className="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all active:scale-95"
-              >
-                No, Thanks
-              </button>
-              <button
-                onClick={handleAllow}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold rounded-lg hover:scale-105 transition-all shadow-lg shadow-[#4DB8FF]/50 active:scale-95"
-              >
-                <i className="fas fa-play mr-2"></i>
-                Let's Go!
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Music Controls - Fixed Bottom Right */}
       <div className="fixed bottom-6 right-6 z-[9998] flex flex-col items-end gap-3">
