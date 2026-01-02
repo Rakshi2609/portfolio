@@ -28,15 +28,15 @@ const experiences = [
       "Created cinematic edits, reels, aftermovies, short films using motion graphics + color grading.",
     startDate: "2024",
     endDate: "Present",
-  },
-  {
-    title: "Harley's Fine Baking",
-    role: "Web Developer",
-    description:
-      "Designed & maintained the website, improved UI, SEO, responsiveness, and performance.",
-    startDate: "2024",
-    endDate: "2025",
-  },
+  // },
+  // {
+  //   title: "Harley's Fine Baking",
+  //   role: "Web Developer",
+  //   description:
+  //     "Designed & maintained the website, improved UI, SEO, responsiveness, and performance.",
+  //   startDate: "2024",
+  //   endDate: "2025",
+  // },
 ];
 
 const Experience = () => {
