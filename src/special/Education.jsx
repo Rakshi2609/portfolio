@@ -101,7 +101,7 @@ const Education = () => {
   };
 
   return (
-    <section className="min-h-screen bg-black py-14 px-8 text-white">
+    <section className="min-h-screen lg:h-screen bg-black pt-0 pb-0 lg:pt-6 lg:pb-2 px-8 text-white">
       <div className="max-w-7xl mx-auto">
         
         {/* TITLE */}
@@ -110,7 +110,7 @@ const Education = () => {
         </h2>
 
         {/* MOBILE DROPDOWN VERSION */}
-        <div className="lg:hidden flex flex-col gap-4">
+        <div className="lg:hidden flex flex-col gap-2">
           {educationData.map((edu, index) => {
             const isExpanded = expandedMobile === index;
 
@@ -129,13 +129,13 @@ const Education = () => {
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex-1">
-                      <h3 className={`text-base font-semibold mb-1 ${isExpanded ? "text-[#4DB8FF]" : "text-white"}`}>
+                      <h3 className={`text-lg sm:text-xl font-semibold mb-2 ${isExpanded ? "text-[#4DB8FF]" : "text-white"}`}>
                         {edu.title}
                       </h3>
-                      <p className="text-sm text-[#4DB8FF] font-medium">
+                      <p className="text-base sm:text-lg text-[#4DB8FF] font-medium">
                         {edu.role}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm sm:text-base text-gray-400">
                         {edu.startDate} – {edu.endDate}
                       </p>
                     </div>
@@ -152,7 +152,7 @@ const Education = () => {
                   }`}
                 >
                   <div className="p-4 bg-black/40 border-t border-white/10">
-                    <p className="text-gray-300 text-sm leading-relaxed">
+                    <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                       {edu.description}
                     </p>
                   </div>
@@ -179,15 +179,15 @@ const Education = () => {
                     ${isActive ? "bg-[#4DB8FF]/10 scale-[1.02] shadow-[0_0_15px_#4DB8FF]" : "hover:bg-white/5"}
                   `}
                 >
-                  <h3 className={`text-base md:text-lg font-semibold mb-1 ${isActive ? "text-[#4DB8FF]" : "text-white"}`}>
+                  <h3 className={`text-lg md:text-xl font-semibold mb-2 ${isActive ? "text-[#4DB8FF]" : "text-white"}`}>
                     {edu.title}
                   </h3>
 
-                  <p className="text-sm text-[#4DB8FF] font-medium">
+                  <p className="text-base md:text-lg text-[#4DB8FF] font-medium">
                     {edu.role}
                   </p>
 
-                  <p className="text-xs text-gray-400">
+                  <p className="text-sm md:text-base text-gray-400">
                     {edu.startDate} – {edu.endDate}
                   </p>
                 </div>
@@ -199,19 +199,19 @@ const Education = () => {
           <div ref={rightPanelRef} className="w-full lg:w-[60%]">
             <div className="bg-black/40 backdrop-blur-2xl border border-white/10 p-6 md:p-10 rounded-3xl shadow-xl">
 
-              <h2 className="text-xl md:text-2xl font-bold text-[#4DB8FF] mb-3">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#4DB8FF] mb-4">
                 {educationData[selected].title}
               </h2>
 
-              <p className="text-base md:text-lg font-semibold text-white mb-1">
+              <p className="text-lg md:text-xl font-semibold text-white mb-2">
                 {educationData[selected].role}
               </p>
 
-              <p className="text-gray-400 text-sm mb-5">
+              <p className="text-gray-400 text-base md:text-lg mb-6">
                 {educationData[selected].startDate} – {educationData[selected].endDate}
               </p>
 
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+              <p className="text-gray-300 text-base md:text-lg leading-relaxed">
                 {educationData[selected].description}
               </p>
 

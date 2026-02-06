@@ -140,7 +140,7 @@ const Experience = () => {
   }, []);
 
   return (
-    <section className="min-h-screen bg-black py-14 px-8 text-white">
+    <section className="min-h-screen lg:h-screen bg-black py-14 px-8 text-white">
       <div className="max-w-7xl mx-auto">
 
         {/* TITLE */}
