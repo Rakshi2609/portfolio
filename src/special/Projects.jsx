@@ -40,18 +40,18 @@ const Projects = () => {
       source: "https://github.com/Rakshi2609/ShopHub",
     },
     {
-      title: "Dr Help 2",
+      title: "Visa Verse",
       description:
-        "Connects doctors and patients in real time. Doctors can access digital medical records instantly. Replaces prescription slips.",
-      tech: ["React", "Express", "MongoDB", "WebRTC"],
-      color: "from-green-500 to-black",
+        "Check's visa requirements for any country with a simple search. Powered by a custom-built ML and AI(LLM) summarization.",
+      tech: ["React", "Express", "MongoDB", "FastAPI", "Gemini API","Sciket-learn"],
+      color: "from-blue-500 to-grey",
       theme: {
-        glow: "#19FFB0",
-        tag: "#19FFB0",
-        button: "#19FFB0",
+        glow: "#4F46E5",
+      tag: "#4F46E5",
+      button: "#2116be",
       },
-      live: "https://dr-help-2.vercel.app",
-      source: "https://github.com/Rakshi2609/Dr_Help_2",
+      live: "https://visa-verse-six.vercel.app",
+      source: "https://github.com/Rakshi2609/Visa_Verse",
     },
     {
       title: "AI Code Reviewer",
