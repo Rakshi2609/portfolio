@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const APPSCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbz9vtfw3hGAYm6PwXuVy7A-BZrf16X4UQKzX9KJYcc58N7vbRKevJY7Q6mDeo8Yw05MZg/exec";
 
 const Contact = () => {
   const sectionRef = useRef(null);
@@ -10,193 +14,153 @@ const Contact = () => {
   const linksRef = useRef(null);
   const formRef = useRef(null);
 
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  // ---------------- GSAP ----------------
   useEffect(() => {
-    const section = sectionRef.current;
-    const heading = headingRef.current;
-    const links = linksRef.current;
-    const form = formRef.current;
-
-    // Animate heading
-    gsap.fromTo(
-      heading,
-      { opacity: 0, y: -50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    // Animate social links
-    gsap.fromTo(
-      links,
-      { opacity: 0, x: -50 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        delay: 0.3,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    // Animate form
-    gsap.fromTo(
-      form,
-      { opacity: 0, x: 50 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        delay: 0.3,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    gsap.fromTo(headingRef.current, { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1 });
+    gsap.fromTo(linksRef.current, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 1 });
+    gsap.fromTo(formRef.current, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 1 });
   }, []);
 
+  // ---------------- Form Handlers ----------------
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // ---------------- Email Sender ----------------
+  const handleSubmit = async () => {
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // ✅ Email to YOU
+      await axios.post(APPSCRIPT_URL, {
+        to: "rakshith@example.com", // replace with your real mail
+        subject: `Portfolio Contact from ${formData.name}`,
+        html: `
+        <h2>📬 New Portfolio Contact</h2>
+        <p><b>Name:</b> ${formData.name}</p>
+        <p><b>Email:</b> ${formData.email}</p>
+        <p><b>Subject:</b> ${formData.subject}</p>
+        <p><b>Message:</b> ${formData.message}</p>
+        `,
+      });
+
+      // ✅ Auto reply to visitor
+      await axios.post(APPSCRIPT_URL, {
+        to: formData.email,
+        subject: "Thank you for contacting Rakshith 🚀",
+        html: `
+<div style="background:#020617;padding:40px;font-family:Segoe UI;color:white;">
+  <h2 style="color:#4DB8FF;">Hey ${formData.name} 👋</h2>
+
+  <p>Thank you for trying to contact <b>Rakshith Ganjimut</b>.</p>
+
+  <p>I have received your message and will reply soon.</p>
+
+  <div style="margin-top:20px;padding:15px;border:1px solid #334155;border-radius:10px;">
+    <p><b>Your Message:</b></p>
+    <p>${formData.message}</p>
+  </div>
+
+  <p style="margin-top:25px;color:#94a3b8;">
+    Meanwhile, feel free to explore my projects or connect with me on LinkedIn or GitHub.
+  </p>
+
+  <p style="margin-top:25px;color:#4DB8FF;font-weight:bold;">
+    — Rakshith Ganjimut
+  </p>
+</div>
+        `,
+      });
+
+      alert("Message sent successfully 🚀");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message 😢");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <section
-      ref={sectionRef}
-      className="min-h-screen bg-black py-20 px-10 text-white flex flex-col items-center justify-center"
-    >
-      {/* Heading */}
+    <section ref={sectionRef} className="min-h-screen bg-black py-20 px-10 text-white flex flex-col items-center justify-center">
       <div ref={headingRef} className="text-center mb-16">
         <h2 className="text-6xl font-extrabold mb-4">
           Let's <span className="text-[#4DB8FF]">Connect</span>
         </h2>
-        <p className="text-gray-400 text-xl">
-          Feel free to reach out for collaborations or just a friendly chat
-        </p>
       </div>
 
       <div className="flex gap-20 w-full max-w-7xl">
-        {/* Left - Social Links */}
-        <div ref={linksRef} className="w-[40%] flex flex-col gap-8">
+        {/* Left */}
+        <div ref={linksRef} className="w-[40%]">
           <h3 className="text-4xl font-bold mb-4">Find me on</h3>
-
-          {/* LinkedIn */}
-          <a
-            href="https://linkedin.com/in/rakshith-ganjimut/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-6 rounded-xl border border-white/10 hover:border-[#4DB8FF] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_#4DB8FF]"
-          >
-            <div className="w-16 h-16 bg-[#0077B5] rounded-lg flex items-center justify-center text-3xl">
-              <i className="fab fa-linkedin-in"></i>
-            </div>
-            <div>
-              <h4 className="text-2xl font-bold">LinkedIn</h4>
-              <p className="text-gray-400">rakshith-ganjimut</p>
-            </div>
-          </a>
-
-          {/* GitHub */}
-          <a
-            href="https://github.com/Rakshi2609"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-6 rounded-xl border border-white/10 hover:border-[#4DB8FF] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_#4DB8FF]"
-          >
-            <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center text-3xl text-black">
-              <i className="fab fa-github"></i>
-            </div>
-            <div>
-              <h4 className="text-2xl font-bold">GitHub</h4>
-              <p className="text-gray-400">@Rakshi2609</p>
-            </div>
-          </a>
-
-          {/* Email */}
-          <div className="flex items-center gap-4 p-6 rounded-xl border border-white/10">
-            <div className="w-16 h-16 bg-[#4DB8FF] rounded-lg flex items-center justify-center text-3xl">
-              <i className="fas fa-envelope"></i>
-            </div>
-            <div>
-              <h4 className="text-2xl font-bold">Email</h4>
-              <p className="text-gray-400">rakshith@example.com</p>
-            </div>
-          </div>
         </div>
 
-        {/* Right - Contact Form */}
+        {/* Form */}
         <div ref={formRef} className="w-[55%]">
-          <div className="bg-black/40 backdrop-blur-2xl border border-white/10 shadow-xl p-10 rounded-3xl">
-            <h3 className="text-4xl font-bold mb-8">Send a Message</h3>
+          <div className="bg-black/40 p-10 rounded-3xl">
 
-            <form className="flex flex-col gap-6">
-              {/* Name */}
-              <div>
-                <label className="text-gray-400 text-lg mb-2 block">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white text-lg focus:border-[#4DB8FF] focus:outline-none transition-all"
-                />
-              </div>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full mb-4 p-3 bg-black border border-white/10 rounded"
+            />
 
-              {/* Email */}
-              <div>
-                <label className="text-gray-400 text-lg mb-2 block">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="john@example.com"
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white text-lg focus:border-[#4DB8FF] focus:outline-none transition-all"
-                />
-              </div>
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              className="w-full mb-4 p-3 bg-black border border-white/10 rounded"
+            />
 
-              {/* Subject */}
-              <div>
-                <label className="text-gray-400 text-lg mb-2 block">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  placeholder="Let's collaborate!"
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white text-lg focus:border-[#4DB8FF] focus:outline-none transition-all"
-                />
-              </div>
+            <input
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              placeholder="Subject"
+              className="w-full mb-4 p-3 bg-black border border-white/10 rounded"
+            />
 
-              {/* Message */}
-              <div>
-                <label className="text-gray-400 text-lg mb-2 block">
-                  Message
-                </label>
-                <textarea
-                  rows="5"
-                  placeholder="Your message here..."
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white text-lg focus:border-[#4DB8FF] focus:outline-none transition-all resize-none"
-                ></textarea>
-              </div>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Message"
+              className="w-full mb-4 p-3 bg-black border border-white/10 rounded"
+            />
 
-              {/* Submit Button */}
-              <button
-                type="button"
-                className="bg-[#4DB8FF] text-black font-bold text-xl py-4 rounded-lg hover:bg-[#3DA8EF] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_#4DB8FF]"
-              >
-                Send Message
-              </button>
-            </form>
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className="bg-[#4DB8FF] px-6 py-3 text-black font-bold rounded"
+            >
+              {loading ? "Sending..." : "Send Message"}
+            </button>
+
           </div>
         </div>
       </div>

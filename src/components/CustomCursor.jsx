@@ -9,18 +9,22 @@ const CustomCursor = () => {
     const cursor = cursorRef.current;
     const cursorDot = cursorDotRef.current;
 
+    // Throttle mousemove for performance
+    let lastCall = 0;
     const moveCursor = (e) => {
+      const now = Date.now();
+      if (now - lastCall < 16) return; // ~60fps
+      lastCall = now;
       gsap.to(cursor, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.5,
+        duration: 0.25,
         ease: "power2.out",
       });
-
       gsap.to(cursorDot, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.1,
+        duration: 0.08,
       });
     };
 
