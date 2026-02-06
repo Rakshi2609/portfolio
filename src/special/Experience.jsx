@@ -9,16 +9,16 @@ const experiences = [
     title: "Hack Club",
     role: "Web Developer",
     description:
-      "Worked on internal tools, responsive UIs, and event-driven applications. Built multiple components to enable faster feature rollout.",
-    startDate: "2023",
-    endDate: "2024",
+      "Actively participating in the club events.",
+    startDate: "Sept, 2025",
+    endDate: "Present",
   },
   {
     title: "CodeChef Club",
     role: "Web Developer",
     description:
-      "Developed competitive coding event portals, leaderboards, UI components, and optimized UX for contest-day traffic.",
-    startDate: "2023",
+      "Developed the design of the website and maintained it.",
+    startDate: "Sept, 2025",
     endDate: "Present",
   },
   {
@@ -26,16 +26,24 @@ const experiences = [
     role: "Video Editor",
     description:
       "Created cinematic edits, reels, aftermovies, short films using motion graphics + color grading.",
-    startDate: "2024",
+    startDate: "Sept, 2025",
+    endDate: "Present",
+  },
+  {
+    title: "AI Club, VIT Chennai",
+    role: "Web Developer",
+    description:
+      "Actively participating in the club events",
+    startDate: "Sept, 2025",
     endDate: "Present",
   },
   {
     title: "Harley's Fine Baking",
     role: "Web Developer",
     description:
-      "Designed & maintained the website, improved UI, SEO, responsiveness, and performance.",
-    startDate: "2024",
-    endDate: "2025",
+      "Designed & maintained a task managing web application",
+    startDate: "May, 2025",
+    endDate: "June, 2025",
   },
 ];
 
@@ -198,19 +206,19 @@ const Experience = () => {
             className="w-[55%] bg-black/40 border border-white/10 rounded-2xl p-8 backdrop-blur-2xl shadow-xl"
           >
             <div ref={contentRef}>
-              <h2 className="text-2xl font-bold text-[#4DB8FF] mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#4DB8FF] mb-4">
                 {experiences[active].title}
               </h2>
 
-              <p className="text-lg text-white mb-1 font-semibold">
+              <p className="text-xl sm:text-2xl lg:text-3xl text-white mb-2 font-semibold">
                 {experiences[active].role}
               </p>
 
-              <p className="text-gray-400 text-sm mb-5 font-medium">
+              <p className="text-gray-400 text-base sm:text-lg lg:text-xl mb-6 font-medium">
                 {experiences[active].startDate} – {experiences[active].endDate}
               </p>
 
-              <p className="text-gray-300 text-base leading-relaxed">
+              <p className="text-gray-300 text-lg sm:text-xl lg:text-2xl leading-relaxed">
                 {experiences[active].description}
               </p>
             </div>
@@ -235,16 +243,16 @@ const Experience = () => {
 
                 {/* Content Card */}
                 <div className="flex-1 bg-black/40 backdrop-blur-2xl rounded-xl border border-white/10 p-5 shadow-lg">
-                  <h3 className="text-lg font-bold text-[#4DB8FF] mb-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#4DB8FF] mb-2">
                     {exp.title}
                   </h3>
-                  <p className="text-sm font-semibold text-white mb-1">
+                  <p className="text-base sm:text-lg font-semibold text-white mb-2">
                     {exp.role}
                   </p>
-                  <p className="text-xs text-gray-500 mb-3">
+                  <p className="text-sm sm:text-base text-gray-500 mb-4">
                     {exp.startDate} – {exp.endDate}
                   </p>
-                  <p className="text-sm text-gray-300 leading-relaxed">
+                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
                     {exp.description}
                   </p>
                 </div>
