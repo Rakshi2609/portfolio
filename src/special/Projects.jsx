@@ -191,7 +191,7 @@ const Projects = () => {
           <div
             key={index}
             ref={(el) => (mobileCardsRef.current[index] = el)}
-            className="project-card w-full max-w-[340px] lg:min-w-[340px] h-[340px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
+            className="project-card w-full max-w-[340px] lg:min-w-[500px] lg:max-w-[420px] h-[340px] lg:h-[500px] flex-shrink-0 transform transition-all duration-300 hover:scale-[1.05]"
           >
             <div
               className={`h-full bg-gradient-to-br ${project.color} p-[2px] rounded-2xl`}
@@ -199,11 +199,11 @@ const Projects = () => {
             >
               <div className="h-full bg-black/80 rounded-2xl backdrop-blur-xl p-5 flex flex-col justify-between border border-white/10 shadow-xl">
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed mb-4">
                     {project.description}
                   </p>
 
@@ -211,7 +211,7 @@ const Projects = () => {
                     {project.tech.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-semibold shadow"
+                        className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[11px] sm:text-xs lg:text-sm font-semibold shadow"
                         style={{ color: project.theme.tag }}
                       >
                         {tech}
@@ -220,12 +220,12 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-2">
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs text-center"
+                    className="flex-1 px-2 py-2 rounded-xl font-semibold bg-white/10 text-white hover:bg-white/20 transition-all duration-300 border border-white/20 text-xs sm:text-sm lg:text-base text-center"
                   >
                     View Live
                   </a>
@@ -234,7 +234,7 @@ const Projects = () => {
                     href={project.source}
                     target="_blank"
                     rel="noreferrer"
-                    className="source-code-btn flex-1 px-2 py-2 rounded-xl font-semibold transition-all duration-300 text-xs text-center"
+                    className="source-code-btn flex-1 px-2 py-2 rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm lg:text-base text-center"
                     style={{
                       zIndex:100,
                       color: project.theme.button,
