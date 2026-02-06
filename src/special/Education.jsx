@@ -23,7 +23,7 @@ const educationData = [
   },
   {
     title: "St. Philomena’s Public School",
-    role: "Schooling (1st–12th)",
+    role: "Schooling (1st–10th)",
     description:
       "Completed schooling from 2009 to 2022. Built academic foundations, discipline, communication and leadership skills.",
     startDate: "2009",
@@ -101,11 +101,11 @@ const Education = () => {
   };
 
   return (
-    <section className="min-h-screen lg:h-screen bg-black pt-0 pb-0 lg:pt-6 lg:pb-2 px-8 text-white">
+    <section className="min-h-fit lg:h-screen bg-black pt-4 pb-4 lg:pt-6 lg:pb-2 px-8 text-white">
       <div className="max-w-7xl mx-auto">
         
         {/* TITLE */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-left pl-0 md:pl-10">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 lg:mb-10 text-left pl-0 md:pl-10">
           <span className="text-[#4DB8FF]">Education</span>
         </h2>
 

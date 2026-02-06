@@ -178,12 +178,18 @@ const About = () => {
               I enjoy building products, exploring ML, and solving real-world problems.
             </p>
 
-            <div className="mt-5 flex gap-3 justify-center flex-wrap">
-              <div className="px-4 py-2 bg-[#4DB8FF]/20 border border-[#4DB8FF] rounded-lg">
-                <p className="text-[#4DB8FF] text-base font-semibold">AI Enthusiast</p>
+            <div className="mt-6 flex gap-4 justify-center flex-wrap">
+              <div className="relative group px-5 py-3 bg-gradient-to-r from-[#4DB8FF]/10 to-[#4DB8FF]/20 border-2 border-[#4DB8FF] rounded-xl cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(77,184,255,0.5)] hover:bg-gradient-to-r hover:from-[#4DB8FF] hover:to-[#AEE6FF]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <p className="relative z-10 text-[#4DB8FF] text-base font-semibold transition-colors duration-300 group-hover:text-black">AI Enthusiast</p>
               </div>
-              <div className="px-4 py-2 bg-[#AEE6FF]/20 border border-[#AEE6FF] rounded-lg">
-                <p className="text-[#AEE6FF] text-base font-semibold">Full Stack Dev</p>
+              <div className="relative group px-5 py-3 bg-gradient-to-r from-[#AEE6FF]/10 to-[#AEE6FF]/20 border-2 border-[#AEE6FF] rounded-xl cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(174,230,255,0.5)] hover:bg-gradient-to-r hover:from-[#AEE6FF] hover:to-[#4DB8FF]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#AEE6FF] to-[#4DB8FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <p className="relative z-10 text-[#AEE6FF] text-base font-semibold transition-colors duration-300 group-hover:text-black">Full Stack Dev</p>
+              </div>
+              <div className="relative group px-5 py-3 bg-gradient-to-r from-green-500/10 to-green-400/20 border-2 border-green-400 rounded-xl cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <p className="relative z-10 text-green-400 text-base font-semibold transition-colors duration-300 group-hover:text-black">Problem Solver</p>
               </div>
             </div>
           </div>
@@ -191,7 +197,7 @@ const About = () => {
         </div>
 
         {/* SKILLS */}
-        <h2 ref={skillsRef} className="text-center text-3xl md:text-4xl font-bold text-white mb-10">
+        <h2 ref={skillsRef} className="text-center text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-10">
           My <span className="text-[#4DB8FF]">Tech Stack</span>
         </h2>
 
@@ -199,7 +205,7 @@ const About = () => {
           {skillCategories.map((category, idx) => (
             <div key={idx} className="text-center">
 
-              <h3 className="text-xl md:text-2xl font-bold text-[#4DB8FF] mb-3">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#4DB8FF] mb-4">
                 {category.category}
               </h3>
 
@@ -209,10 +215,10 @@ const About = () => {
                   {[...category.skills, ...category.skills, ...category.skills].map((skill, skillIdx) => (
                     <div
                       key={skillIdx}
-                      className="flex-shrink-0 mx-3 px-5 py-3 bg-gray-800 rounded-xl border border-gray-700 hover:border-[#4DB8FF] transition-all duration-300 hover:scale-105 flex items-center gap-2 cursor-pointer min-w-[140px] justify-center"
+                      className="flex-shrink-0 mx-3 px-6 py-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-[#4DB8FF] transition-all duration-300 hover:scale-105 flex items-center gap-3 cursor-pointer min-w-[160px] justify-center"
                     >
-                      <img src={skill.logo} alt={skill.name} className="w-6 h-6" />
-                      <span className="text-white text-base font-medium whitespace-nowrap">
+                      <img src={skill.logo} alt={skill.name} className="w-7 h-7" />
+                      <span className="text-white text-base sm:text-lg md:text-xl font-medium whitespace-nowrap">
                         {skill.name}
                       </span>
                     </div>
