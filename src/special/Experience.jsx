@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SectionParticles from "@/components/ui/section-particles";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,14 +53,12 @@ const Experience = () => {
   const [hovered, setHovered] = useState(null);
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const timelineRef = useRef(null);
-  const detailsRef = useRef(null);
   const contentRef = useRef(null);
-
-  const active = hovered !== null ? hovered : selected;
   const leftTimelineRef = useRef(null);
   const rightDetailsRef = useRef(null);
   const mobileCardsRef = useRef([]);
+
+  const active = hovered !== null ? hovered : selected;
 
   useEffect(() => {
     if (contentRef.current) {
@@ -81,7 +80,7 @@ const Experience = () => {
     });
 
     const mm = gsap.matchMedia();
-    
+
     // Mobile animations
     mm.add("(max-width: 1023px)", () => {
       mobileCardsRef.current.forEach((card, index) => {
@@ -140,16 +139,27 @@ const Experience = () => {
   }, []);
 
   return (
-    <section className="min-h-screen lg:h-screen bg-black py-14 px-8 text-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="experience" className="min-h-screen lg:h-screen bg-black py-14 px-8 text-white relative overflow-hidden noise-overlay">
+      {/* Subtle particle background */}
+      <SectionParticles color="#4DB8FF" particleCount={90} speed={0.3} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
 
         {/* TITLE */}
-        <h2
-          ref={titleRef}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-left lg:pl-40 pl-6"
-        >
-          My <span className="text-[#4DB8FF]">Experience</span>
-        </h2>
+        <div ref={titleRef} className="mb-12 text-left lg:pl-40 pl-6">
+          <p
+            className="text-xs tracking-[0.4em] uppercase mb-2"
+            style={{ fontFamily: "var(--font-body)", color: "rgba(77, 184, 255, 0.5)" }}
+          >
+            Where I've contributed
+          </p>
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            My <span className="text-[#4DB8FF] glow-text">Experience</span>
+          </h2>
+        </div>
 
         {/* Desktop Version - Timeline Layout */}
         <div className="hidden lg:flex gap-12 justify-center">
@@ -159,7 +169,7 @@ const Experience = () => {
             ref={leftTimelineRef}
             className="w-[25%] relative flex flex-col items-center"
           >
-            <div className="absolute top-0 bottom-0 w-[2px] bg-white/10 rounded-full"></div>
+            <div className="absolute top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#4DB8FF]/30 via-[#4DB8FF]/10 to-transparent rounded-full"></div>
 
             <div className="flex flex-col gap-8 mt-3">
               {experiences.map((exp, index) => {
@@ -171,27 +181,29 @@ const Experience = () => {
                     onClick={() => setSelected(index)}
                     onMouseEnter={() => setHovered(index)}
                     onMouseLeave={() => setHovered(null)}
-                    className="flex flex-col items-center cursor-pointer"
+                    className="flex flex-col items-center cursor-pointer group"
                   >
                     <div
-                      className={`w-5 h-5 rounded-full border-2 border-[#4DB8FF] transition-all duration-300 ${
-                        isActive
-                          ? "bg-[#4DB8FF] shadow-[0_0_12px_#4DB8FF]"
-                          : "bg-black"
-                      }`}
+                      className={`w-4 h-4 rounded-full border transition-all duration-300 ${isActive
+                        ? "bg-[#4DB8FF] border-[#4DB8FF] shadow-[0_0_16px_rgba(77,184,255,0.6)] scale-110"
+                        : "bg-transparent border-white/20 group-hover:border-[#4DB8FF]/50"
+                        }`}
                     ></div>
 
                     <p
-                      className={`mt-2 font-semibold text-sm text-center transition-all ${
-                        isActive
-                          ? "text-[#4DB8FF] scale-105"
-                          : "text-gray-400"
-                      }`}
+                      className={`mt-2 font-medium text-sm text-center transition-all duration-300 ${isActive
+                        ? "text-[#4DB8FF] scale-105"
+                        : "text-white/40 group-hover:text-white/60"
+                        }`}
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
                       {exp.title}
                     </p>
 
-                    <p className="text-xs text-gray-500 font-medium">
+                    <p
+                      className="text-xs text-white/20 font-light mt-0.5"
+                      style={{ fontFamily: "var(--font-body)" }}
+                    >
                       {exp.startDate} – {exp.endDate}
                     </p>
                   </div>
@@ -203,22 +215,37 @@ const Experience = () => {
           {/* RIGHT DETAILS */}
           <div
             ref={rightDetailsRef}
-            className="w-[55%] bg-black/40 border border-white/10 rounded-2xl p-8 backdrop-blur-2xl shadow-xl"
+            className="w-[55%] glass-panel p-8"
           >
             <div ref={contentRef}>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#4DB8FF] mb-4">
+              {/* Active indicator line */}
+              <div className="w-12 h-[2px] bg-gradient-to-r from-[#4DB8FF] to-transparent mb-6" />
+
+              <h2
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#4DB8FF] mb-4"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
                 {experiences[active].title}
               </h2>
 
-              <p className="text-xl sm:text-2xl lg:text-3xl text-white mb-2 font-semibold">
+              <p
+                className="text-xl sm:text-2xl lg:text-3xl text-white/90 mb-2 font-semibold"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
                 {experiences[active].role}
               </p>
 
-              <p className="text-gray-400 text-base sm:text-lg lg:text-xl mb-6 font-medium">
+              <p
+                className="text-white/30 text-base sm:text-lg lg:text-xl mb-6 font-light tracking-wide"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
                 {experiences[active].startDate} – {experiences[active].endDate}
               </p>
 
-              <p className="text-gray-300 text-lg sm:text-xl lg:text-2xl leading-relaxed">
+              <p
+                className="text-white/60 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
                 {experiences[active].description}
               </p>
             </div>
@@ -229,30 +256,48 @@ const Experience = () => {
         {/* Mobile Version - Vertical Timeline */}
         <div className="lg:hidden relative px-6">
           {/* Vertical Line */}
-          <div className="absolute left-[1.75rem] top-0 bottom-0 w-[2px] bg-white/10"></div>
+          <div className="absolute left-[1.75rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#4DB8FF]/30 via-[#4DB8FF]/10 to-transparent"></div>
 
           <div className="flex flex-col gap-6">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              ref={(el) => (mobileCardsRef.current[index] = el)}
-              className="relative flex gap-4"
-            >
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                ref={(el) => (mobileCardsRef.current[index] = el)}
+                className="relative flex gap-4"
+              >
                 {/* Timeline Dot */}
-                <div className="flex-shrink-0 w-4 h-4 rounded-full border-2 border-[#4DB8FF] bg-black mt-1 z-10"></div>
+                <div className="flex-shrink-0 w-3 h-3 rounded-full border border-[#4DB8FF]/50 bg-[#4DB8FF]/20 mt-2 z-10 shadow-[0_0_8px_rgba(77,184,255,0.3)]"></div>
 
                 {/* Content Card */}
-                <div className="flex-1 bg-black/40 backdrop-blur-2xl rounded-xl border border-white/10 p-5 shadow-lg">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#4DB8FF] mb-2">
+                <div className="flex-1 glass-panel p-5">
+                  <span
+                    className="text-[10px] tracking-[0.3em] uppercase text-[#4DB8FF]/40 block mb-2"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    0{index + 1}
+                  </span>
+                  <h3
+                    className="text-xl sm:text-2xl font-bold text-[#4DB8FF] mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
                     {exp.title}
                   </h3>
-                  <p className="text-base sm:text-lg font-semibold text-white mb-2">
+                  <p
+                    className="text-base sm:text-lg font-semibold text-white/90 mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
                     {exp.role}
                   </p>
-                  <p className="text-sm sm:text-base text-gray-500 mb-4">
+                  <p
+                    className="text-sm sm:text-base text-white/25 mb-4 font-light"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
                     {exp.startDate} – {exp.endDate}
                   </p>
-                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                  <p
+                    className="text-base sm:text-lg text-white/50 leading-relaxed font-light"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
                     {exp.description}
                   </p>
                 </div>

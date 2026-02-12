@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import NeuralBackground from "@/components/ui/flow-field-background";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,31 +11,39 @@ const Name = () => {
   const rolesRef = useRef(null);
   const imageRef = useRef(null);
   const containerRef = useRef(null);
+  const subtitleRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Initial animations
-    gsap.from(helloRef.current, {
-      y: 40,
+    // Staggered entrance animation
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.from(helloRef.current, {
+      y: 60,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
+      duration: 1.2,
+    })
+      .from(subtitleRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+      }, "-=0.6");
 
     const letters = nameRef.current.querySelectorAll(".letter");
     gsap.from(letters, {
       opacity: 0,
-      y: 20,
-      duration: 0.6,
-      stagger: 0.06,
+      y: 30,
+      rotateX: 90,
+      duration: 0.8,
+      stagger: 0.04,
       ease: "back.out(2)",
+      delay: 0.3,
     });
 
     // Responsive scroll animation
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
-      // Desktop animation
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -47,22 +56,17 @@ const Name = () => {
 
       tl.to(
         helloRef.current,
-        {
-          x: -350,
-          y: -70,
-          scale: 0.4,
-          duration: 1,
-        },
+        { x: -350, y: -70, scale: 0.4, duration: 1 },
         0
       )
         .to(
           nameRef.current,
-          {
-            x: -350,
-            y: -150,
-            scale: 0.5,
-            duration: 1,
-          },
+          { x: -350, y: -150, scale: 0.5, duration: 1 },
+          0
+        )
+        .to(
+          subtitleRef.current,
+          { opacity: 0, y: -30, duration: 0.5 },
           0
         )
         .fromTo(
@@ -74,19 +78,12 @@ const Name = () => {
         .fromTo(
           imageRef.current,
           { opacity: 0, scale: 0.8, y: 50 },
-          {
-            opacity: 1,
-            scale: 1,
-            x: 300,
-            y: 40,
-            duration: 1,
-          },
+          { opacity: 1, scale: 1, x: 300, y: 40, duration: 1 },
           0.5
         );
     });
 
     mm.add("(max-width: 1023px)", () => {
-      // Mobile/Tablet animation - simpler, vertical layout
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -99,37 +96,29 @@ const Name = () => {
 
       tl.to(
         helloRef.current,
-        {
-          y: -500,
-          scale: 0.4,
-          duration: 1,
-        },
+        { y: -500, scale: 0.4, duration: 1 },
         0
       )
         .to(
           nameRef.current,
-          {
-            y: -280,
-            scale: 0.7,
-            duration: 1,
-          },
+          { y: -280, scale: 0.7, duration: 1 },
+          0
+        )
+        .to(
+          subtitleRef.current,
+          { opacity: 0, y: -30, duration: 0.5 },
           0
         )
         .fromTo(
           rolesRef.current,
           { opacity: 0, y: 40 },
-          { opacity: 1, y: -120,x:-40, scale: 0.8, duration: 1 },
+          { opacity: 1, y: -120, x: -40, scale: 0.8, duration: 1 },
           0.5
         )
         .fromTo(
           imageRef.current,
           { opacity: 0, scale: 0.8, y: 150 },
-          {
-            opacity: 1,
-            scale: 1.1,
-            y: 180,
-            duration: 1,
-          },
+          { opacity: 1, scale: 1.1, y: 180, duration: 1 },
           0.5
         );
     });
@@ -144,14 +133,23 @@ const Name = () => {
       ref={containerRef}
       className="h-screen w-full bg-black flex items-center justify-center relative overflow-hidden"
     >
+      {/* FLOW FIELD PARTICLE BACKGROUND */}
+      <NeuralBackground
+        color="#4DB8FF"
+        trailOpacity={0.08}
+        particleCount={700}
+        speed={0.7}
+        blur={3}
+        className="absolute inset-0 z-0"
+      />
+
+      {/* Radial gradient overlay for depth */}
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.8)_100%)]" />
+
       <style>{`
         @keyframes ray {
-          0% {
-            transform: translateX(-100%) rotate(45deg);
-          }
-          100% {
-            transform: translateX(200%) rotate(45deg);
-          }
+          0% { transform: translateX(-100%) rotate(45deg); }
+          100% { transform: translateX(200%) rotate(45deg); }
         }
         .animate-ray {
           animation: ray 1s ease-in-out;
@@ -163,110 +161,137 @@ const Name = () => {
       `}</style>
 
       {/* CENTER TEXT */}
-      <div className="absolute flex flex-col items-center justify-center text-center">
+      <div className="absolute flex flex-col items-center justify-center text-center z-10">
 
         {/* HELLO TEXT */}
         <h1
           ref={helloRef}
           className="
-            text-white font-bold mb-3
-            text-[2.4rem]
-            sm:text-[3.2rem]
-            md:text-[4rem]
-            lg:text-[5rem]
-            xl:text-[5.5rem]
-            2xl:text-[6rem]
+            font-bold mb-2 tracking-wide text-white
+            text-[3rem]
+            sm:text-[4rem]
+            md:text-[5rem]
+            lg:text-[5.5rem]
+            xl:text-[6rem]
+            2xl:text-[6.5rem]
             whitespace-nowrap
           "
+          style={{ fontFamily: "var(--font-display)" }}
         >
           Hello, I'm
         </h1>
 
-        {/* NAME TEXT */}
+        {/* NAME TEXT — large, solid white with cyan glow */}
         <h2
           ref={nameRef}
           className="
-            font-extrabold leading-tight text-white
-            text-[2.6rem]
-            sm:text-[3.3rem]
-            md:text-[4.5rem]
-            lg:text-[6rem]
-            xl:text-[6.7rem]
-            2xl:text-[7rem]
+            font-extrabold leading-[0.95] text-white
+            text-[3.2rem]
+            sm:text-[4.2rem]
+            md:text-[5.5rem]
+            lg:text-[7rem]
+            xl:text-[8rem]
+            2xl:text-[8.5rem]
             tracking-tight whitespace-nowrap
           "
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{
+            fontFamily: "var(--font-name)",
+            textShadow: "0 0 60px rgba(77, 184, 255, 0.5), 0 0 120px rgba(77, 184, 255, 0.2), 0 2px 4px rgba(0,0,0,0.5)"
+          }}
         >
           {name.map((char, idx) => (
-            <span key={idx} className="letter inline-block">
+            <span key={idx} className="letter inline-block" style={{ perspective: "500px" }}>
               {char === " " ? "\u00A0" : char}
             </span>
           ))}
         </h2>
+
+        {/* SUBTITLE */}
+        <p
+          ref={subtitleRef}
+          className="mt-5 text-base sm:text-lg md:text-xl tracking-[0.3em] uppercase"
+          style={{
+            fontFamily: "var(--font-body)",
+            color: "rgba(77, 184, 255, 0.6)",
+            fontWeight: 300
+          }}
+        >
+          Engineer · Creator · Innovator
+        </p>
       </div>
 
       {/* ROLES BLOCK */}
-      <div ref={rolesRef} className="absolute opacity-0 text-left">
-        <div className="border-l-4 border-[#4DB8FF] pl-4 lg:pl-6 py-3 lg:py-4">
-          <p className="text-[#4DB8FF] text-xl lg:text-3xl font-bold mb-3 lg:mb-5 tracking-wide">
+      <div ref={rolesRef} className="absolute opacity-0 text-left z-10">
+        <div className="border-l-2 border-[#4DB8FF]/60 pl-5 lg:pl-7 py-3 lg:py-4">
+          <p
+            className="text-lg lg:text-2xl font-semibold mb-4 lg:mb-6 tracking-widest uppercase"
+            style={{
+              fontFamily: "var(--font-display)",
+              color: "var(--accent)"
+            }}
+          >
             Hire me for
           </p>
 
-          <div className="space-y-2 lg:space-y-3">
-            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
-              ➤ App Developer
-            </p>
-            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
-              ➤ Web Developer
-            </p>
-            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
-              ➤ Full Stack
-            </p>
-            <p className="text-white text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-2 cursor-pointer transition-all">
-              ➤ AI/ML
-            </p>
+          <div className="space-y-3 lg:space-y-4">
+            {["App Developer", "Web Developer", "Full Stack", "AI/ML"].map((role, i) => (
+              <p
+                key={i}
+                className="text-white/80 text-base lg:text-xl xl:text-2xl hover:text-[#4DB8FF] hover:translate-x-3 transition-all duration-300 flex items-center gap-3"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4DB8FF]/50 inline-block" />
+                {role}
+              </p>
+            ))}
           </div>
 
-          <a 
+          <a
             href="/resume/Rakshith_Ganjimut_Resume.pdf"
             target="_blank"
             rel="noreferrer"
-            className="mt-5 lg:mt-8 px-6 lg:px-8 py-2 lg:py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-bold text-base lg:text-lg rounded-lg hover:scale-110 hover:shadow-lg shadow-[#4DB8FF]/50 active:scale-95 transition-transform inline-block"
+            className="mt-6 lg:mt-8 px-7 lg:px-9 py-2.5 lg:py-3 bg-gradient-to-r from-[#4DB8FF] to-[#AEE6FF] text-black font-semibold text-sm lg:text-base rounded-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(77,184,255,0.4)] active:scale-95 transition-all duration-300 inline-block tracking-wide"
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Get Resume
+            Get Resume ↗
           </a>
         </div>
       </div>
 
       {/* PROFILE IMAGE CIRCLE */}
-      <div 
-        ref={imageRef} 
-        className="absolute opacity-0"
+      <div
+        ref={imageRef}
+        className="absolute opacity-0 z-10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] rounded-full bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] p-[3px] flex items-center justify-center relative">
+        <div className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] rounded-full p-[2px] flex items-center justify-center relative animate-pulse-glow"
+          style={{ background: "linear-gradient(135deg, #4DB8FF, #AEE6FF, #4DB8FF)" }}
+        >
           {/* Blue ray effect on hover */}
           <div className={`absolute inset-0 rounded-full overflow-hidden transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <div className="absolute animate-ray bg-gradient-to-r from-transparent via-[#4DB8FF] to-transparent opacity-70"></div>
           </div>
-          
+
           <div className="w-full h-full rounded-full overflow-hidden relative bg-black z-10">
-            <img 
-              src="/images/proffef.jpg" 
-              alt="Profile" 
+            <img
+              src="/images/proffef.jpg"
+              alt="Profile"
               className={`absolute w-full h-full object-cover transition-all duration-500 ${isHovered ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
               style={{ objectPosition: '50% 36%' }}
             />
-            <img 
-              src="/images/anime.jpg" 
-              alt="Anime Profile" 
+            <img
+              src="/images/anime.jpg"
+              alt="Anime Profile"
               className={`absolute w-full h-full object-cover transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               style={{ objectPosition: '50% 38%' }}
             />
           </div>
         </div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-[2]" />
     </section>
   );
 };
