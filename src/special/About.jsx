@@ -170,26 +170,58 @@ const About = () => {
         {/* IMAGE + TEXT */}
         <div className="flex flex-col lg:flex-row gap-10 items-center justify-center mb-20">
 
-          {/* IMAGE */}
-          <div ref={imageRef} className="flex-1 flex justify-center group">
-            <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-2xl bg-gradient-to-br from-[#4DB8FF] to-[#AEE6FF] p-[2px] flex items-center justify-center transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-2 group-hover:shadow-[0_0_50px_rgba(77,184,255,0.4)]">
-              <div className="w-full h-full rounded-2xl bg-black/90 flex items-center justify-center relative overflow-hidden glass-panel">
-                {/* SVG Icon - Hidden on hover */}
-                <svg className="w-14 h-14 transition-all duration-500 group-hover:scale-0 group-hover:opacity-0" viewBox="0 0 24 24" fill="none" stroke="#4DB8FF" strokeWidth="1.5">
-                  <path d="M9 3H4v6h5V3zM20 9h-5v6h5V9zM14 15H9v6h5v-6zM20 3h-5v4h5V3z" />
-                  <path d="M12 12L9 9M12 12l3-3M12 12v9" />
-                </svg>
-                {/* RG Text - Shows on hover */}
-                <div
-                  className="absolute inset-0 flex items-center justify-center text-5xl md:text-6xl font-bold opacity-0 scale-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-6"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    background: "linear-gradient(135deg, #4DB8FF, #AEE6FF)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
-                  }}
-                >
-                  RG
+          {/* INTERACTIVE TERMINAL CARD */}
+          <div ref={imageRef} className="flex-1 flex justify-center">
+            <div
+              className="w-[260px] sm:w-[300px] md:w-[340px] rounded-2xl p-[1.5px] transform transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(77,184,255,0.3)]"
+              style={{ background: "linear-gradient(135deg, #4DB8FF40, #4DB8FF10, #AEE6FF30)" }}
+            >
+              <div className="w-full rounded-2xl bg-[#0a0a0f] overflow-hidden glass-panel">
+                {/* Window chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                  <span className="ml-3 text-[10px] text-white/20 tracking-wider" style={{ fontFamily: "var(--font-body)" }}>
+                    rakshith.js
+                  </span>
+                </div>
+                {/* Code lines */}
+                <div className="px-4 py-4 space-y-2 min-h-[200px]">
+                  <p className="text-[11px] font-mono leading-relaxed">
+                    <span className="text-[#c678dd]">const</span>{" "}
+                    <span className="text-[#e5c07b]">rakshith</span>{" "}
+                    <span className="text-white/40">=</span>{" "}
+                    <span className="text-[#61afef]">{"{"}</span>
+                  </p>
+                  <p className="text-[11px] font-mono leading-relaxed pl-4">
+                    <span className="text-[#e06c75]">role</span>
+                    <span className="text-white/40">:</span>{" "}
+                    <span className="text-[#98c379]">"Full Stack Dev"</span>
+                    <span className="text-white/30">,</span>
+                  </p>
+                  <p className="text-[11px] font-mono leading-relaxed pl-4">
+                    <span className="text-[#e06c75]">passion</span>
+                    <span className="text-white/40">:</span>{" "}
+                    <span className="text-[#98c379]">"AI & Robotics"</span>
+                    <span className="text-white/30">,</span>
+                  </p>
+                  <p className="text-[11px] font-mono leading-relaxed pl-4">
+                    <span className="text-[#e06c75]">coffee</span>
+                    <span className="text-white/40">:</span>{" "}
+                    <span className="text-[#d19a66]">Infinity</span>
+                    <span className="text-white/30">,</span>
+                  </p>
+                  <p className="text-[11px] font-mono leading-relaxed pl-4">
+                    <span className="text-[#e06c75]">status</span>
+                    <span className="text-white/40">:</span>{" "}
+                    <span className="text-[#98c379]">"Building cool stuff"</span>
+                  </p>
+                  <p className="text-[11px] font-mono leading-relaxed">
+                    <span className="text-[#61afef]">{"}"}</span>
+                    <span className="text-white/30">;</span>
+                    <span className="inline-block w-[6px] h-[14px] bg-[#4DB8FF] ml-1 animate-pulse rounded-sm" />
+                  </p>
                 </div>
               </div>
             </div>
@@ -215,15 +247,27 @@ const About = () => {
               ].map((tag, i) => (
                 <div
                   key={i}
-                  className="group/tag relative px-5 py-2.5 rounded-xl cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 glass-panel"
-                  style={{ borderColor: `${tag.color}20` }}
+                  className="relative px-6 py-3 rounded-xl cursor-pointer overflow-hidden transition-all duration-300 hover:scale-110 glass-panel"
+                  style={{ borderColor: `${tag.color}30` }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 25px ${tag.color}40, inset 0 0 20px ${tag.color}15`;
+                    e.currentTarget.style.borderColor = `${tag.color}60`;
+                    e.currentTarget.querySelector('.tag-bg').style.opacity = '1';
+                    e.currentTarget.querySelector('.tag-text').style.color = '#000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.borderColor = `${tag.color}30`;
+                    e.currentTarget.querySelector('.tag-bg').style.opacity = '0';
+                    e.currentTarget.querySelector('.tag-text').style.color = tag.color;
+                  }}
                 >
                   <div
-                    className="absolute inset-0 opacity-0 group-hover/tag:opacity-100 transition-opacity duration-300"
-                    style={{ background: `linear-gradient(135deg, ${tag.color}, ${tag.color}cc)` }}
+                    className="tag-bg absolute inset-0 transition-opacity duration-300"
+                    style={{ background: `linear-gradient(135deg, ${tag.color}, ${tag.color}bb)`, opacity: 0 }}
                   />
                   <p
-                    className="relative z-10 text-sm font-semibold transition-colors duration-300 group-hover/tag:text-black"
+                    className="tag-text relative z-10 text-sm font-bold tracking-wide transition-colors duration-300"
                     style={{ color: tag.color, fontFamily: "var(--font-display)" }}
                   >
                     {tag.label}
