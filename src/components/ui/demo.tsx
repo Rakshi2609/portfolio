@@ -1,6 +1,5 @@
 import React from "react";
 import NeuralBackground from "@/components/ui/flow-field-background";
-import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function NeuralHeroDemo() {
     return (
